@@ -5,3 +5,5 @@ alias ag=ansible-galaxy
 alias agu='ansible-galaxy install -r requirements.yml -f'
 alias hostedit='sudo nano /etc/hosts'
 alias av=ansible-vault
+alias reload='source ~/.bash_profile'
+alias pass='lpass show --password as2008 | pbcopy'
