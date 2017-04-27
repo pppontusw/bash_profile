@@ -7,3 +7,5 @@ alias hostedit='sudo nano /etc/hosts'
 alias av=ansible-vault
 alias reload='source ~/.bash_profile'
 alias pass='lpass show --password as2008 | pbcopy'
+alias clonep='git clone git@github.com:pppontusw/'
+alias clonem='git clone git@github.com:Midaxo/'
