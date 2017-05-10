@@ -1,3 +1,3 @@
 #!/bin/bash
-cp .bash_profile ~/.bash_aliases
+cp profile ~/.bash_aliases
 source ~/.bash_aliases
