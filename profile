@@ -8,11 +8,11 @@ alias hostedit='sudo nano /etc/hosts'
 alias av=ansible-vault
 alias reload='source ~/.bash_profile'
 alias pass='lpass show --password as2008 | pbcopy'
+alias randompass='openssl rand -base64 32'
 
 function ansibleping() { ansible -i $1 -m ping $2; } 
 
 function ansiblewinping() { ansible -i $1 -m win_ping $2; }
-
 
 function clonep() { git clone git@github.com:pppontusw/$1; }
 
