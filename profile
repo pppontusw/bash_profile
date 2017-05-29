@@ -23,6 +23,8 @@ function vault() {
 	if [ "${INP}" ]; then
 		if [ "${INP}" == "show" ]; then
 			echo $ANSIBLE_VAULT_PASSWORD_FILE;
+                elif [ "${INP}" == "list" ]; then
+                        ls ~/.vaultpass*;
 		elif [ "${INP}" == "none" ]; then
 			export ANSIBLE_VAULT_PASSWORD_FILE=;
 		elif [ -f "$FILENAME" ]; then
