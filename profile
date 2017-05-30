@@ -7,7 +7,7 @@ alias agu='ansible-galaxy install -r requirements.yaml -f'
 alias hostedit='sudo nano /etc/hosts'
 alias av=ansible-vault
 alias reload='source ~/.bash_profile'
-alias pass='lpass show --password as2008 | pbcopy'
+alias pass='lpass show -c as2008 --password'
 alias randompass='openssl rand -base64 32'
 
 function ansibleping() { ansible -i $1 -m ping $2; } 
