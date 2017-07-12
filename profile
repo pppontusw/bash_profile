@@ -1,5 +1,6 @@
 export ANSIBLE_VAULT_PASSWORD_FILE=~/.vaultpass
 export EDITOR=nano
+export LPASS_AGENT_TIMEOUT=0
 
 alias apb=ansible-playbook
 alias ag=ansible-galaxy
@@ -22,4 +23,6 @@ function vaultmidaxo() { rm ~/.vaultpass && ln -s ~/.vaultpassmidaxo ~/.vaultpas
 
 function vaultpersonal() { rm ~/.vaultpass && ln -s ~/.vaultpasspersonal ~/.vaultpass; } 
 
-function vaultkerberos() { rm ~/.vaultpass && ln -s ~/.vaultpasskerberos ~/.vaultpass; }
+function vaultnebula() { rm ~/.vaultpass && ln -s ~/.vaultpasskerberos ~/.vaultpass; }
+
+function vaultusermgmt() { rm ~/.vaultpass && ln -s ~/.vaultpassusermgmt ~/.vaultpass; }
