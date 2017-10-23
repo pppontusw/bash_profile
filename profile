@@ -7,7 +7,6 @@ alias apb=ansible-playbook
 alias ag=ansible-galaxy
 alias agu='ansible-galaxy install -r requirements.yaml -f'
 alias hostedit='sudo nano /etc/hosts'
-alias av=ansible-vault
 alias reload='source ~/.bash_profile'
 alias pass='lpass show -c as2008 --password'
 alias randompass='openssl rand -base64 32'
@@ -34,8 +33,37 @@ function vault() {
 	else
 		echo "Specify a filename (~/.vaultpass{filename}) with 'vault {filename}'"
 	fi
- }
+}
+
+function av() {
+	INP=$1
+	SEC=$2
+	if [ "$INP" == "view" ]; then
+		if [ -f "$SEC" ]; then
+			ansible-vault view $SEC
+		elif [ "$SEC" ]; then
+			echo "No file named $SEC"
+		else
+			ansible-vault view vault.yml
+		fi
+	elif echo $INP | grep -q .yml || echo $INP | grep -q .yaml; then
+		if [ -f "$INP" ]; then
+			echo "Opening $INP with $ANSIBLE_VAULT_PASSWORD_FILE"
+			ansible-vault edit "$INP"
+		else
+			echo "Creating $INP with $ANSIBLE_VAULT_PASSWORD_FILE"
+			ansible-vault create "$INP"
+		fi
+	elif [ -f vault.yml ]; then
+		echo "Opening vault.yml with $ANSIBLE_VAULT_PASSWORD_FILE"
+		ansible-vault edit vault.yml
+	else
+		echo "Creating vault.yml with $ANSIBLE_VAULT_PASSWORD_FILE"
+		ansible-vault create vault.yml
+	fi
+}
 
 if ! [ $ANSIBLE_VAULT_PASSWORD_FILE ]; then
 	vault np
 fi
+chmod 600 ~/.vaultpass*
