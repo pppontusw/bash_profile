@@ -10,6 +10,7 @@ alias hostedit='sudo nano /etc/hosts'
 alias reload='source ~/.bash_profile'
 alias pass='lpass show -c as2008 --password'
 alias randompass='openssl rand -base64 32'
+alias av=ansible-vault
 
 function ansibleping() { ansible -i $1 -m ping "tag_Os_Ubu*"; } 
 function ansiblewinping() { ansible -i $1 -m win_ping "tag_Os_Win*"; }
@@ -35,33 +36,50 @@ function vault() {
 	fi
 }
 
-function av() {
-	INP=$1
-	SEC=$2
-	if [ "$INP" == "view" ]; then
-		if [ -f "$SEC" ]; then
-			ansible-vault view $SEC
-		elif [ "$SEC" ]; then
-			echo "No file named $SEC"
-		else
-			ansible-vault view vault.yml
-		fi
-	elif echo $INP | grep -q .yml || echo $INP | grep -q .yaml; then
-		if [ -f "$INP" ]; then
-			echo "Opening $INP with $ANSIBLE_VAULT_PASSWORD_FILE"
-			ansible-vault edit "$INP"
-		else
-			echo "Creating $INP with $ANSIBLE_VAULT_PASSWORD_FILE"
-			ansible-vault create "$INP"
-		fi
-	elif [ -f vault.yml ]; then
-		echo "Opening vault.yml with $ANSIBLE_VAULT_PASSWORD_FILE"
-		ansible-vault edit vault.yml
+function gencsr() {
+	if [ $1 ]; then
+		openssl req -out $1.csr -new -newkey rsa:2048 -nodes -keyout $1.key
 	else
-		echo "Creating vault.yml with $ANSIBLE_VAULT_PASSWORD_FILE"
-		ansible-vault create vault.yml
+		echo "You need to give a filename for the csr and key with 'gencsr {filename}'"
 	fi
 }
+
+function genselfsigned() {
+	if [ $1 ]; then
+		openssl req -newkey rsa:2048 -nodes -keyout $1.key -x509 -days 7300 -subj '/CN=$1' -out $1.pem
+		echo "Saved as $1.key and $1.pem"
+	else
+		echo "You need to give a URL with 'genselfsigned {URL}'"
+	fi
+}
+
+# function av() {
+# 	INP=$1
+# 	SEC=$2
+# 	if [ "$INP" == "view" ]; then
+# 		if [ -f "$SEC" ]; then
+# 			ansible-vault view $SEC
+# 		elif [ "$SEC" ]; then
+# 			echo "No file named $SEC"
+# 		else
+# 			ansible-vault view vault.yml
+# 		fi
+# 	elif echo $INP | grep -q .yml || echo $INP | grep -q .yaml; then
+# 		if [ -f "$INP" ]; then
+# 			echo "Opening $INP with $ANSIBLE_VAULT_PASSWORD_FILE"
+# 			ansible-vault edit "$INP"
+# 		else
+# 			echo "Creating $INP with $ANSIBLE_VAULT_PASSWORD_FILE"
+# 			ansible-vault create "$INP"
+# 		fi
+# 	elif [ -f vault.yml ]; then
+# 		echo "Opening vault.yml with $ANSIBLE_VAULT_PASSWORD_FILE"
+# 		ansible-vault edit vault.yml
+# 	else
+# 		echo "Creating vault.yml with $ANSIBLE_VAULT_PASSWORD_FILE"
+# 		ansible-vault create vault.yml
+# 	fi
+# }
 
 if ! [ $ANSIBLE_VAULT_PASSWORD_FILE ]; then
 	vault np
