@@ -38,6 +38,23 @@ function vault() {
 	fi
 }
 
+function ap() {
+	INP=$1
+	if [ "${INP}" ]; then
+		if [ "${INP}" == "show" ]; then
+			echo $AWS_PROFILE;
+        elif [ "${INP}" == "list" ]; then
+                grep -E "(terraform|ansible)" ~/.aws/credentials;
+		elif [ "${INP}" == "none" ]; then
+			export AWS_PROFILE=;
+		else
+			export AWS_PROFILE=$1;
+		fi
+	else
+		echo "Specify an AWS profile with 'ap {profilename}', use 'ap list' to show available profiles"
+	fi
+}
+
 function gencsr() {
 	if [ $1 ]; then
 		openssl req -out $1.csr -new -newkey rsa:2048 -nodes -keyout $1.key
