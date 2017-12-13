@@ -19,6 +19,14 @@ function ansiblewinping() { ansible -i $1 -m win_ping "tag_Os_Win*"; }
 function clonep() { git clone git@github.com:pppontusw/$1; }
 function clonem() { git clone git@github.com:Midaxo/$1; }
 
+function ssha() {
+	ENVI=$1
+	HOSTI=$(echo "$2" | tr /a-z/ /A-Z/)
+	command="~/git/ansible/crimson/${ENVI} | jq '._meta.hostvars[] | select(.ec2_tag_Role==\"$HOSTI\") | .ansible_ssh_host' | tr -d \\\""
+	abc=$(eval $command)
+	ssh $abc
+}
+
 function vault() {
 	INP=$1
 	FILENAME=~/.vaultpass$1
