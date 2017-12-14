@@ -19,6 +19,8 @@ function ansiblewinping() { ansible -i $1 -m win_ping "tag_Os_Win*"; }
 function clonep() { git clone git@github.com:pppontusw/$1; }
 function clonem() { git clone git@github.com:Midaxo/$1; }
 
+function delkh() { sed -i.bak -e "${1}d" /Users/pontuswiberg/.ssh/known_hosts; }
+
 function ssha() {
 	ENVI=$1
 	HOSTI=$(echo "$2" | tr /a-z/ /A-Z/)
