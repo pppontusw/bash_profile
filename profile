@@ -32,7 +32,7 @@ function ssha() {
 function sshb() {
 	ENVI=$1
 	HOSTI=$(echo "$2" | tr /a-z/ /A-Z/)
-	command="~/git/ansible/service/${ENVI} | jq '._meta.hostvars[] | select(.ec2_tag_Role==\"$HOSTI\") | .ansible_ssh_host' | tr -d \\\""
+	command="~/git/ansible/service/${ENVI}-service | jq '._meta.hostvars[] | select(.ec2_tag_Role==\"$HOSTI\") | .ansible_ssh_host' | tr -d \\\""
 	abc=$(eval $command)
 	ssh $abc
 }
