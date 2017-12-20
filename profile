@@ -12,6 +12,7 @@ alias pass='lpass show -c as2008 --password'
 alias randompass='openssl rand -base64 32'
 alias av=ansible-vault
 alias tf=terraform
+alias deltfplan='cd ~/git/terraform && find . -name "tfplan" -type f -delete'
 
 function ansibleping() { ansible -i $1 -m ping "tag_Os_Ubu*"; } 
 function ansiblewinping() { ansible -i $1 -m win_ping "tag_Os_Win*"; }
