@@ -25,7 +25,7 @@ function delkh() { sed -i.bak -e "${1}d" /Users/pontuswiberg/.ssh/known_hosts; }
 function ssha() {
 	ENVI=$1
 	HOSTI=$(echo "$2" | tr /a-z/ /A-Z/)
-	command="~/git/ansible/crimson/${ENVI} | jq '._meta.hostvars[] | select(.ec2_tag_Role==\"$HOSTI\") | .ansible_ssh_host' | tr -d \\\""
+	command="~/git/ansible/application/${ENVI} | jq '._meta.hostvars[] | select(.ec2_tag_Role==\"$HOSTI\") | .ansible_ssh_host' | tr -d \\\""
 	abc=$(eval $command)
 	ssh $abc
 }
@@ -91,34 +91,6 @@ function genselfsigned() {
 		echo "You need to give a URL with 'genselfsigned {URL}'"
 	fi
 }
-
-# function av() {
-# 	INP=$1
-# 	SEC=$2
-# 	if [ "$INP" == "view" ]; then
-# 		if [ -f "$SEC" ]; then
-# 			ansible-vault view $SEC
-# 		elif [ "$SEC" ]; then
-# 			echo "No file named $SEC"
-# 		else
-# 			ansible-vault view vault.yml
-# 		fi
-# 	elif echo $INP | grep -q .yml || echo $INP | grep -q .yaml; then
-# 		if [ -f "$INP" ]; then
-# 			echo "Opening $INP with $ANSIBLE_VAULT_PASSWORD_FILE"
-# 			ansible-vault edit "$INP"
-# 		else
-# 			echo "Creating $INP with $ANSIBLE_VAULT_PASSWORD_FILE"
-# 			ansible-vault create "$INP"
-# 		fi
-# 	elif [ -f vault.yml ]; then
-# 		echo "Opening vault.yml with $ANSIBLE_VAULT_PASSWORD_FILE"
-# 		ansible-vault edit vault.yml
-# 	else
-# 		echo "Creating vault.yml with $ANSIBLE_VAULT_PASSWORD_FILE"
-# 		ansible-vault create vault.yml
-# 	fi
-# }
 
 if ! [ $ANSIBLE_VAULT_PASSWORD_FILE ]; then
 	vault np
