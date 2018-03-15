@@ -49,6 +49,7 @@ function vault() {
 		elif [ "${INP}" == "none" ]; then
 			export ANSIBLE_VAULT_PASSWORD_FILE=;
 		elif [ -f "$FILENAME" ]; then
+			ln -sf $FILENAME ~/.vaultpassfile
 			export ANSIBLE_VAULT_PASSWORD_FILE=$FILENAME;
 		else
 			echo "No file exists named $FILENAME"
