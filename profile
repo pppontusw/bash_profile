@@ -11,6 +11,7 @@ alias hostedit='sudo nano /etc/hosts'
 alias reload='source ~/.bash_profile'
 alias pass='lpass show -c as2008 --password'
 alias randompass='openssl rand -base64 32'
+alias randompassc='openssl rand -base64 32 | pbcopy'
 alias av=ansible-vault
 alias tf=terraform
 alias deltfplan='cd ~/git/terraform && find . -name "tfplan" -type f -delete'
