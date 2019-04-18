@@ -15,6 +15,7 @@ alias randompassc='openssl rand -base64 32 | pbcopy'
 alias av=ansible-vault
 alias tf=terraform
 alias deltfplan='cd ~/git/terraform && find . -name "tfplan" -type f -delete'
+alias d-c=docker-compose
 
 function ansibleping() { ansible -i $1 -m ping "tag_Os_Ubu*"; } 
 function ansiblewinping() { ansible -i $1 -m win_ping "tag_Os_Win*"; }
