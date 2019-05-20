@@ -8,7 +8,6 @@ alias ag=ansible-galaxy
 alias agu='ansible-galaxy install -r requirements.yaml -f'
 alias hostedit='sudo nano /etc/hosts'
 alias reload='source ~/.bash_profile'
-alias pass='lpass show -c as2008 --password'
 alias randompass='openssl rand -base64 32'
 alias randompassc='openssl rand -base64 32 | pbcopy'
 alias av=ansible-vault
