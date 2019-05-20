@@ -1,6 +1,5 @@
 export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 export EDITOR=nano
-export LPASS_AGENT_TIMEOUT=0
 export PS1="\W$ "
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
