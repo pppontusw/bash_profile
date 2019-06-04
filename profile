@@ -1,8 +1,7 @@
-export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 export EDITOR=nano
-export PS1="\W$ "
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
+alias python=python3
 alias apb=ansible-playbook
 alias ag=ansible-galaxy
 alias agu='ansible-galaxy install -r requirements.yaml -f'
@@ -43,11 +42,11 @@ function vault() {
 	INP=$1
 	FILENAME=~/.vaultpass$1
 	if [ "${INP}" ]; then
-		if [ "${INP}" == "show" ]; then
+		if [ "${INP}" "==" "show" ]; then
 			echo $ANSIBLE_VAULT_PASSWORD_FILE;
-                elif [ "${INP}" == "list" ]; then
+                elif [ "${INP}" "==" "list" ]; then
                         ls ~/.vaultpass*;
-		elif [ "${INP}" == "none" ]; then
+		elif [ "${INP}" "==" "none" ]; then
 			export ANSIBLE_VAULT_PASSWORD_FILE=;
 		elif [ -f "$FILENAME" ]; then
 			ln -sf $FILENAME ~/.vaultpass
@@ -63,11 +62,11 @@ function vault() {
 function ap() {
 	INP=$1
 	if [ "${INP}" ]; then
-		if [ "${INP}" == "show" ]; then
+		if [ "${INP}" "==" "show" ]; then
 			echo $AWS_PROFILE;
-        elif [ "${INP}" == "list" ]; then
+        elif [ "${INP}" "==" "list" ]; then
                 grep -E "(terraform|ansible)" ~/.aws/credentials;
-		elif [ "${INP}" == "none" ]; then
+		elif [ "${INP}" "==" "none" ]; then
 			export AWS_PROFILE=;
 		else
 			export AWS_PROFILE=$1;
