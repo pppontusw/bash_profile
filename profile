@@ -93,7 +93,5 @@ function genselfsigned() {
 	fi
 }
 
-if ! [ $ANSIBLE_VAULT_PASSWORD_FILE ]; then
-	vault np
-fi
+export ANSIBLE_VAULT_IDENTITY_LIST="nonprod@~/.vaultpassnp, us@~/.vaultpassus, eu@~/.vaultpasseu, hpe@~/.vaultpasshpe, devenv@~/.vaultpassdevenv, personal@~/.vaultpasspersonal"
 chmod 600 ~/.vaultpass*
