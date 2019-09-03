@@ -1,12 +1,12 @@
-export EDITOR=nano
+export EDITOR=vim
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+export TZ=/usr/share/zoneinfo/Europe/Helsinki
 
 alias python=python3
 alias apb=ansible-playbook
 alias ag=ansible-galaxy
 alias agu='ansible-galaxy install -r requirements.yaml -f'
 alias hostedit='sudo nano /etc/hosts'
-alias reload='source ~/.bash_profile'
 alias randompass='openssl rand -base64 32'
 alias randompassc='openssl rand -base64 32 | pbcopy'
 alias av=ansible-vault
@@ -36,6 +36,13 @@ function sshb() {
 	command="~/git/ansible/service/${ENVI}-service | jq '._meta.hostvars[] | select(.ec2_tag_Role==\"$HOSTI\") | .ansible_ssh_host' | tr -d \\\""
 	abc=$(eval $command)
 	ssh $abc
+}
+function reload() {
+	if [ -f ~/.bash_profile ]; then
+		source ~/.bash_profile
+	elif [ -f ~/.bash_aliases ]; then
+		source ~/.bash_aliases
+	fi 
 }
 
 function vault() {
