@@ -1,4 +1,5 @@
 call plug#begin('~/.vim/plugged')
+Plug 'scrooloose/nerdcommenter'
 Plug 'kaicataldo/material.vim'
 Plug 'https://github.com/xypnox/OceanicMaterialVim.git'
 Plug 'vim-airline/vim-airline-themes'
