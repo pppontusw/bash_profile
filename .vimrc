@@ -54,8 +54,13 @@ set wildignore+=*/share/**   " I don't want to pull up these folders/files when 
 set wildignore+=*/__pycache__/**   " I don't want to pull up these folders/files when calling CtrlP
 set wildignore+=*/site-packages/**   " I don't want to pull up these folders/files when calling CtrlP
 
+silent !mkdir -p ~/.vim/undo
+silent !mkdir -p ~/.vim/swap
+silent !mkdir -p ~/.vim/backup
 set backupdir=~/.vim/backup//
 set directory=~/.vim/swap//
+set undofile
+set undodir=~/.vim/undo//
 
 " use terminal colors
 set termguicolors
