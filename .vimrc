@@ -64,6 +64,8 @@ set undodir=~/.vim/undo//
 
 " use terminal colors
 set termguicolors
+let &t_ZH="\e[3m"
+let &t_ZR="\e[23m"
 
 " colorscheme
 set background=dark
