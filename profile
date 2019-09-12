@@ -102,3 +102,4 @@ function genselfsigned() {
 
 export ANSIBLE_VAULT_IDENTITY_LIST="nonprod@~/.vaultpassnp, us@~/.vaultpassus, eu@~/.vaultpasseu, hpe@~/.vaultpasshpe, devenv@~/.vaultpassdevenv, personal@~/.vaultpasspersonal"
 chmod 600 ~/.vaultpass*
+
