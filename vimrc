@@ -105,7 +105,17 @@ nmap sp :split<cr>
 "nmap :bp :BufSurfBack<cr>
 "nmap :bn :BufSurfForward<cr>
 nmap <C-b> :NERDTreeToggle<cr>
-nmap <leader>gca :Gcommit -a -S<cr>
-nmap <leader>gp :Gpush<cr>
-nmap <leader>gl :Gpull<cr>
-nmap <leader>gst :Gstatus<cr>
+nmap <leader>gc :Gcommit -a -S<cr>
+nnoremap <leader>gs :Gstatus<CR>
+nnoremap <leader>ga :Gcommit --amend<CR>
+nnoremap <leader>gd :Gdiff<CR>
+nnoremap <leader>ge :Gedit<CR>
+nnoremap <leader>gr :Gread<CR>
+nnoremap <leader>gw :Gwrite<CR><CR>
+nnoremap <leader>gl :silent! Glog<CR>
+nnoremap <leader>gp :Ggrep<Space>
+nnoremap <leader>gm :Gmove<Space>
+nnoremap <leader>gb :Git branch<Space>
+nnoremap <leader>go :Git checkout<Space>
+nnoremap <leader>gps :Dispatch! git push<CR>
+nnoremap <leader>gpl :Dispatch! git pull<CR>

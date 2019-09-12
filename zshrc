@@ -100,6 +100,8 @@ source $ZSH/oh-my-zsh.sh
 
 bindkey "\e[1;3C" forward-word
 bindkey "\e[1;3D" backward-word
+bindkey "[1;3C" forward-word
+bindkey "[1;3D" backward-word
 
 export LANG="en_US.UTF-8"
 export PATH="$PATH:/usr/local/bin"
