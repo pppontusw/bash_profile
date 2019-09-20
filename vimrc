@@ -11,7 +11,7 @@ Plug 'tpope/vim-surround'
 Plug 'jiangmiao/auto-pairs'
 Plug 'airblade/vim-gitgutter'
 Plug 'ekalinin/Dockerfile.vim'
-Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+Plug 'prettier/vim-prettier', { 'do': 'npm install' }
 Plug 'w0rp/ale'
 Plug 'tell-k/vim-autopep8'
 call plug#end()
@@ -84,9 +84,12 @@ let NERDTreeShowHidden=1
 let g:prettier#autoformat = 0
 autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html Prettier
 
+let g:prettier#config#bracket_spacing = 'true'
+let g:prettier#config#trailing_comma = 'none'
+
 " Ale
 let g:ale_fixers = {
- \ 'javascript': ['eslint'],
+ \ 'javascript': ['prettier'],
  \ 'python': ['pylint']
  \ }
 
