@@ -28,6 +28,7 @@ Plug 'hashivim/vim-terraform'
 Plug 'maralla/completor.vim'
 Plug 'mileszs/ack.vim'
 Plug 'tpope/vim-unimpaired'
+Plug 'lucapette/vim-textobj-underscore'
 call plug#end()
 
 " from mscoutermarsh/dotfiles
