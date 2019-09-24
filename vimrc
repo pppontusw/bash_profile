@@ -17,9 +17,9 @@ Plug 'tpope/vim-surround'
 Plug 'jiangmiao/auto-pairs'
 Plug 'airblade/vim-gitgutter'
 Plug 'ekalinin/Dockerfile.vim'
-Plug 'prettier/vim-prettier', { 'do': 'npm install' }
+"Plug 'prettier/vim-prettier', { 'do': 'npm install' }
 Plug 'w0rp/ale'
-Plug 'tell-k/vim-autopep8'
+"Plug 'tell-k/vim-autopep8'
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'ntpeters/vim-better-whitespace'
@@ -31,6 +31,9 @@ Plug 'tpope/vim-unimpaired'
 Plug 'kana/vim-textobj-user'
 Plug 'lucapette/vim-textobj-underscore'
 Plug 'mattn/emmet-vim'
+Plug 'pgdouyon/vim-evanesco'
+Plug 'adelarsq/vim-matchit'
+Plug 'sickill/vim-pasta'
 call plug#end()
 
 " from mscoutermarsh/dotfiles
@@ -115,21 +118,25 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 let NERDTreeShowHidden=1
 
 " Prettier
-let g:prettier#autoformat = 0
-autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html Prettier
+"let g:prettier#autoformat = 0
+"autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html Prettier
 
-let g:prettier#config#bracket_spacing = 'true'
-let g:prettier#config#trailing_comma = 'none'
+"let g:prettier#config#bracket_spacing = 'true'
+"let g:prettier#config#trailing_comma = 'none'
 
 " Ale
 let g:ale_fixers = {
  \ 'javascript': ['prettier'],
- \ 'python': ['pylint']
+ \ 'typescript': ['prettier'],
+ \ 'python': ['black']
  \ }
 
+let g:ale_fix_on_save = 1
+let g:ale_javascript_prettier_options = '--single-quote'
+
 " Autopep8
-let g:autopep8_on_save = 1
-let g:autopep8_disable_show_diff=1
+"let g:autopep8_on_save = 1
+"let g:autopep8_disable_show_diff=1
 
 " Mappings
 
