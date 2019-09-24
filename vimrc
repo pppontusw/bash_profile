@@ -1,3 +1,9 @@
+" Load vim-plug
+if empty(glob("~/.vim/autoload/plug.vim"))
+  let s:first_run = 1
+  execute '!curl -fLo ~/.vim/autoload/plug.vim https://raw.github.com/junegunn/vim-plug/master/plug.vim'
+endif
+
 call plug#begin('~/.vim/plugged')
 Plug 'scrooloose/nerdcommenter'
 Plug 'kaicataldo/material.vim'
@@ -14,23 +20,45 @@ Plug 'ekalinin/Dockerfile.vim'
 Plug 'prettier/vim-prettier', { 'do': 'npm install' }
 Plug 'w0rp/ale'
 Plug 'tell-k/vim-autopep8'
+Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
+Plug 'ntpeters/vim-better-whitespace'
+Plug 'alvan/vim-closetag'
+Plug 'hashivim/vim-terraform'
+Plug 'maralla/completor.vim'
+Plug 'mileszs/ack.vim'
+Plug 'tpope/vim-unimpaired'
 call plug#end()
+
+" from mscoutermarsh/dotfiles
+set wildmenu                          " Tab autocomplete in command mode
+set ttyfast                           " Send more characters in fast terminals
+set nowrap                            " Don't wrap long lines
+set hlsearch                          " Highlight search results
+set incsearch                         " Show search results as you type
+set autoread                          " Auto reload changed files
+
+set scrolloff=5       " Leave 5 lines of buffer when scrolling
+"set sidescrolloff=10  " Leave 10 characters of horizontal buffer when scrolling
+
+let g:auto_save = 1  " enable AutoSave on Vim startup
+let g:auto_save_in_insert_mode = 0 " do not save in insert mode
+
 
 " window split settings
 set splitbelow
 set splitright
 
+" esc timeout
 set ttimeout
-set ttimeoutlen=100
-set timeoutlen=3000
+set ttimeoutlen=0
+set timeoutlen=1000
 
-set nocompatible
 set number
 set visualbell           " don't beep
 set noerrorbells         " don't beep
 set autowrite  "Save on buffer switch
 set showcmd
-
 set linespace=12
 set tabstop=4
 set smarttab
@@ -46,13 +74,14 @@ set copyindent                  " copy the previous indentation on autoindenting
 set ignorecase                  " ignore case when searching
 set smartcase                  " ignore case if search pattern is all lowercase,
 
-set wildignore+=*/vendor/**         " I don't want to pull up these folders/files when calling CtrlP
-set wildignore+=*/public/**         " I don't want to pull up these folders/files when calling CtrlP
-set wildignore+=*/node_modules/**   " I don't want to pull up these folders/files when calling CtrlP
-set wildignore+=*/bin/**   " I don't want to pull up these folders/files when calling CtrlP
-set wildignore+=*/share/**   " I don't want to pull up these folders/files when calling CtrlP
-set wildignore+=*/__pycache__/**   " I don't want to pull up these folders/files when calling CtrlP
-set wildignore+=*/site-packages/**   " I don't want to pull up these folders/files when calling CtrlP
+" ignore for CtrlP
+set wildignore+=*/vendor/**
+set wildignore+=*/public/**
+set wildignore+=*/node_modules/**
+set wildignore+=*/bin/**
+set wildignore+=*/share/**
+set wildignore+=*/__pycache__/**
+set wildignore+=*/site-packages/**
 
 silent !mkdir -p ~/.vim/undo
 silent !mkdir -p ~/.vim/swap
@@ -61,6 +90,8 @@ set backupdir=~/.vim/backup//
 set directory=~/.vim/swap//
 set undofile
 set undodir=~/.vim/undo//
+set undolevels=1000
+set undoreload=10000
 
 " use terminal colors
 set termguicolors
@@ -97,17 +128,48 @@ let g:ale_fixers = {
 let g:autopep8_on_save = 1
 let g:autopep8_disable_show_diff=1
 
+" Mappings
+
 let mapleader = ","
 let g:mapleader = ","
 let g:EasyMotion_leader_key = '<Leader>'
 
-" Mappings
+" Get off my lawn - helpful when learning Vim :)
+nnoremap <Left> :echoe "Use h"<CR>
+nnoremap <Right> :echoe "Use l"<CR>
+nnoremap <Up> :echoe "Use k"<CR>
+nnoremap <Down> :echoe "Use j"<CR>
+
+" text bubbling taken from vimcasts
+" Bubble single lines
+nmap <C-k> [e
+nmap <C-j> ]e
+
+" Bubble multiple lines
+vmap <C-k> [egv
+vmap <C-j> ]egv
+
+" remap for fi keyboard (stolen from unimpaired readme)
+nmap < [
+nmap > ]
+omap < [
+omap > ]
+xmap < [
+xmap > ]
+
+" splits
 nmap :sp :rightbelow sp<cr>
 nmap vs :vsplit<cr>
 nmap sp :split<cr>
-"nmap :bp :BufSurfBack<cr>
-"nmap :bn :BufSurfForward<cr>
+
 nmap <C-b> :NERDTreeToggle<cr>
+
+" vim completor
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
+
+" fugitive
 nnoremap <leader>gs :Gstatus<CR>
 nnoremap <leader>gc :Gcommit -v -q<CR>
 nnoremap <leader>ga :Gcommit --amend<CR>
