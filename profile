@@ -6,7 +6,7 @@ alias python=python3
 alias apb=ansible-playbook
 alias ag=ansible-galaxy
 alias agu='ansible-galaxy install -r requirements.yaml -f'
-alias hostedit='sudo nano /etc/hosts'
+alias hostedit='sudo vim /etc/hosts'
 alias randompass='openssl rand -base64 32'
 alias randompassc='openssl rand -base64 32 | pbcopy'
 alias av=ansible-vault
@@ -18,7 +18,7 @@ alias tls='tmux ls'
 alias tn='tmux new-session'
 alias sourcevenv='source .venv/bin/activate'
 
-function ansibleping() { ansible -i $1 -m ping "tag_Os_Ubu*"; } 
+function ansibleping() { ansible -i $1 -m ping "tag_Os_Ubu*"; }
 function ansiblewinping() { ansible -i $1 -m win_ping "tag_Os_Win*"; }
 
 function clonep() { git clone git@github.com:pppontusw/$1; }
@@ -46,7 +46,7 @@ function reload() {
 		source ~/.bash_profile
 	elif [ -f ~/.bash_aliases ]; then
 		source ~/.bash_aliases
-	fi 
+	fi
 }
 
 function vault() {

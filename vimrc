@@ -153,12 +153,14 @@ vmap <C-k> [egv
 vmap <C-j> ]egv
 
 " remap for fi keyboard (stolen from unimpaired readme)
-nmap < [
-nmap > ]
-omap < [
-omap > ]
-xmap < [
-xmap > ]
+"nmap < [
+"nmap > ]
+"omap < [
+"omap > ]
+"xmap < [
+"xmap > ]
+nmap ><Space> ]<Space>
+nmap <<Space> [<Space>
 
 " splits
 nmap :sp :rightbelow sp<cr>
@@ -171,6 +173,9 @@ nmap <C-b> :NERDTreeToggle<cr>
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
+
+nnoremap <leader>w :w<CR>
+nnoremap <leader>q :q<CR>
 
 " fugitive
 nnoremap <leader>gs :Gstatus<CR>
