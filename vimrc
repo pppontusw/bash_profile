@@ -34,6 +34,9 @@ Plug 'mattn/emmet-vim'
 Plug 'pgdouyon/vim-evanesco'
 Plug 'adelarsq/vim-matchit'
 Plug 'sickill/vim-pasta'
+Plug 'tpope/vim-sleuth'
+Plug 'davidhalter/jedi-vim'
+Plug 'tmhedberg/SimpylFold'
 call plug#end()
 
 " from mscoutermarsh/dotfiles
@@ -50,6 +53,8 @@ set scrolloff=5       " Leave 5 lines of buffer when scrolling
 let g:auto_save = 1  " enable AutoSave on Vim startup
 let g:auto_save_in_insert_mode = 0 " do not save in insert mode
 
+" use the default clipboard for yank and paste
+set clipboard=unnamed
 
 " window split settings
 set splitbelow
@@ -60,7 +65,7 @@ set ttimeout
 set ttimeoutlen=0
 set timeoutlen=1000
 
-set number
+set relativenumber
 set visualbell           " don't beep
 set noerrorbells         " don't beep
 set autowrite  "Save on buffer switch
@@ -201,3 +206,13 @@ nnoremap <leader>go :Git checkout<Space>
 nnoremap <leader>gps :Gpush<CR>
 nnoremap <leader>gpl :Gpull<CR>
 
+" folding
+nnoremap <leader>f za
+nnoremap <leader>FO zR
+nnoremap <leader>FC zM
+
+" numbers
+nnoremap <leader>rn :set relativenumber<CR>
+nnoremap <leader>nrn :set norelativenumber<CR>
+nnoremap <leader>nn :set nonumber<CR>
+nnoremap <leader>no :set number<CR>
