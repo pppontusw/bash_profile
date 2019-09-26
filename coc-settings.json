@@ -6,5 +6,4 @@
     "prettier.eslintIntegration": true,
     "eslint.filetypes": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
     "python.linting.pylintEnabled": true,
-    "python.pythonPath": "${workspaceDir}/.venv/bin/python",
 }
