@@ -114,7 +114,7 @@ let g:airline#extensions#branch#enabled=1
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 let NERDTreeShowHidden=1
 
-let g:coc_global_extensions = ['coc-css', 'coc-html', 'coc-python', 'coc-prettier', 'coc-eslint', 'coc-snippets', 'coc-json', 'coc-tsserver']
+let g:coc_global_extensions = ['coc-css', 'coc-html', 'coc-python', 'coc-prettier', 'coc-eslint', 'coc-snippets', 'coc-json', 'coc-tsserver', 'coc-emmet']
 
 " Ale
 "let g:ale_fixers = {
