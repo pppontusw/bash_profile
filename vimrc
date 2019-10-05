@@ -30,6 +30,7 @@ Plug 'tpope/vim-sleuth'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'leafgarland/typescript-vim'
+Plug 'rizzatti/dash.vim'
 call plug#end()
 
 " from mscoutermarsh/dotfiles
