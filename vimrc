@@ -31,6 +31,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'leafgarland/typescript-vim'
 Plug 'rizzatti/dash.vim'
+Plug 'jmcantrell/vim-diffchanges'
 call plug#end()
 
 " from mscoutermarsh/dotfiles
@@ -187,16 +188,18 @@ nnoremap <leader>go :Git checkout<Space>
 nnoremap <leader>gps :Gpush<CR>
 nnoremap <leader>gpl :Gpull<CR>
 
+nnoremap <leader>dd :DiffChangesDiffToggle<CR>
+
 " folding
 nnoremap <leader>f za
 nnoremap <leader>FO zR
 nnoremap <leader>FC zM
 
 " numbers
-nnoremap <leader>rn :set relativenumber<CR>
-nnoremap <leader>nrn :set norelativenumber<CR>
-nnoremap <leader>nn :set nonumber<CR>
-nnoremap <leader>no :set number<CR>
+nnoremap <leader>nrn :set relativenumber<CR>
+nnoremap <leader>norn :set norelativenumber<CR>
+nnoremap <leader>non :set nonumber<CR>
+nnoremap <leader>nn :set number<CR>
 
 " all this is for COC
 " " if hidden is not set, TextEdit might fail.
@@ -241,8 +244,8 @@ inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 " inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " Use `[g` and `]g` to navigate diagnostics
-nmap <silent> <g <Plug>(coc-diagnostic-prev)
-nmap <silent> >g <Plug>(coc-diagnostic-next)
+"nmap <leader>dp <Plug>(coc-diagnostic-prev)
+nmap <leader>d <Plug>(coc-diagnostic-next)
 
 " Remap keys for gotos
 nmap <leader>jd <Plug>(coc-definition)
