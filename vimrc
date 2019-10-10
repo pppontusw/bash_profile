@@ -244,8 +244,8 @@ inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 " inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " Use `[g` and `]g` to navigate diagnostics
-"nmap <leader>dp <Plug>(coc-diagnostic-prev)
-nmap <leader>d <Plug>(coc-diagnostic-next)
+nmap <leader>dp <Plug>(coc-diagnostic-prev)
+nmap <leader>dn <Plug>(coc-diagnostic-next)
 
 " Remap keys for gotos
 nmap <leader>jd <Plug>(coc-definition)
