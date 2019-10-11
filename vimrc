@@ -32,6 +32,8 @@ Plug 'peitalin/vim-jsx-typescript'
 Plug 'leafgarland/typescript-vim'
 Plug 'rizzatti/dash.vim'
 Plug 'jmcantrell/vim-diffchanges'
+Plug 'xolox/vim-session'
+Plug 'xolox/vim-misc'
 call plug#end()
 
 " from mscoutermarsh/dotfiles
@@ -111,6 +113,10 @@ colorscheme vim-material
 let g:airline_theme='minimalist'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#branch#enabled=1
+
+" vim-session
+let g:session_autosave = 'yes'
+let g:session_autoload = 'yes'
 
 " NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
