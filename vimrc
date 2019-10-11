@@ -110,9 +110,22 @@ set background=dark
 colorscheme vim-material
 
 "airline
-let g:airline_theme='minimalist'
+let g:airline_theme='solarized'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#branch#enabled=1
+let g:airline#extensions#coc#enabled = 1
+
+" Update section z to just have line number
+let g:airline_section_z = airline#section#create(['linenr'])
+
+" Do not draw separators for empty sections (only for the active window) >
+let g:airline_skip_empty_sections = 1
+
+" Smartly uniquify buffers names with similar filename, suppressing common parts of paths.
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+
+" Hide the Nerdtree status line to avoid clutter
+let g:NERDTreeStatusline = ''
 
 " vim-session
 let g:session_autosave = 'yes'
