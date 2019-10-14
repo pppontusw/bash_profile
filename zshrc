@@ -107,3 +107,5 @@ export LANG="en_US.UTF-8"
 export PATH="$PATH:/usr/local/bin"
 
 source ~/.bash_profile
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

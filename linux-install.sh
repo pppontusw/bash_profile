@@ -1,7 +1,6 @@
 #!/bin/bash
-cp profile ~/.bash_aliases
-source ~/.bash_aliases
-cp vimrc ~/.vimrc
+if [ ! -L ~/.bash_aliases ]; then ln -s profile ~/.bash_aliases; fi
+if [ ! -L ~/.vimrc ]; then ln -s vimrc ~/.vimrc; fi
 mkdir -p ~/.vim
-cp coc-settings.json ~/.vim/
-cp tmux.conf ~/.tmux.conf
+if [ ! -L ~/.vim/coc-settings.json ]; then ln -s coc-settings.json ~/.vim/coc-settings.json; fi
+if [ ! -L ~/.tmux.conf ]; then ln -s tmux.conf ~/.tmux.conf; fi

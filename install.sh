@@ -1,8 +1,8 @@
 #!/bin/bash
-cp profile ~/.bash_profile
-source ~/.bash_profile
-cp vimrc ~/.vimrc
+if [ ! -L ~/.bash_profile ]; then ln -s profile ~/.bash_profile; fi
+if [ ! -L ~/.vimrc ]; then ln -s vimrc ~/.vimrc; fi
 mkdir -p ~/.vim
-cp coc-settings.json ~/.vim/
-cp tmux.conf ~/.tmux.conf
-cp zshrc ~/.zshrc
+if [ ! -L ~/.vim/coc-settings.json ]; then ln -s coc-settings.json ~/.vim/coc-settings.json; fi
+if [ ! -L ~/.tmux.conf ]; then ln -s tmux.conf ~/.tmux.conf; fi
+if [ ! -L ~/.zshrc ]; then ln -s zshrc ~/.zshrc; fi
+
