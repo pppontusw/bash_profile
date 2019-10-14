@@ -4,5 +4,5 @@ source ~/.bash_profile
 cp vimrc ~/.vimrc
 mkdir -p ~/.vim
 cp coc-settings.json ~/.vim/
-cp tmux.conf ~/.tmux.conf 
+cp tmux.conf ~/.tmux.conf
 cp zshrc ~/.zshrc
