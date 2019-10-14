@@ -35,6 +35,8 @@ Plug 'xolox/vim-session'
 Plug 'xolox/vim-misc'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'junegunn/vim-peekaboo'
+Plug 'mbbill/undotree'
 call plug#end()
 
 " from mscoutermarsh/dotfiles
