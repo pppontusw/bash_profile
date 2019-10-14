@@ -19,7 +19,7 @@ alias tls='tmux ls'
 alias tn='tmux new-session'
 alias sourcevenv='source .venv/bin/activate'
 
-function vims() { vim -S ~/.vim/sessions/$1.vim  }
+function vims() { vim -S ~/.vim/sessions/$1 }
 
 function ansibleping() { ansible -i $1 -m ping "tag_Os_Ubu*"; }
 function ansiblewinping() { ansible -i $1 -m win_ping "tag_Os_Win*"; }

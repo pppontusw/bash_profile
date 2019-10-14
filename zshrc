@@ -108,4 +108,16 @@ export PATH="$PATH:/usr/local/bin"
 
 source ~/.bash_profile
 
+alias zreload='source ~/.zshrc'
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+function _vims() {
+    local state
+    _arguments '1: :->session'
+
+    case $state in ( session )
+        _describe 'command' "($(ls ~/.vim/sessions))";;
+    esac
+}
+compdef _vims vims
