@@ -63,6 +63,7 @@ set ttimeoutlen=0
 set timeoutlen=1000
 
 set relativenumber
+set number
 set visualbell           " don't beep
 set noerrorbells         " don't beep
 set autowrite  "Save on buffer switch
@@ -82,14 +83,6 @@ set copyindent                  " copy the previous indentation on autoindenting
 set ignorecase                  " ignore case when searching
 set smartcase                  " ignore case if search pattern is all lowercase,
 
-" ignore for CtrlP
-set wildignore+=*/vendor/**
-set wildignore+=*/public/**
-set wildignore+=*/node_modules/**
-set wildignore+=*/bin/**
-set wildignore+=*/share/**
-set wildignore+=*/__pycache__/**
-set wildignore+=*/site-packages/**
 
 silent !mkdir -p ~/.vim/undo
 silent !mkdir -p ~/.vim/swap
@@ -138,24 +131,11 @@ let NERDTreeShowHidden=1
 
 let g:coc_global_extensions = ['coc-css', 'coc-html', 'coc-python', 'coc-prettier', 'coc-eslint', 'coc-snippets', 'coc-json', 'coc-tsserver', 'coc-emmet']
 
-" Ale
-"let g:ale_fixers = {
- "\ 'javascript': ['prettier'],
- "\ 'typescript': ['prettier'],
- "\ 'python': ['black']
- "\ }
-
 " Mappings
 
 let mapleader = ","
 let g:mapleader = ","
 let g:EasyMotion_leader_key = '<Leader>'
-
-" Get off my lawn - helpful when learning Vim :)
-nnoremap <Left> :echoe "Use h"<CR>
-nnoremap <Right> :echoe "Use l"<CR>
-nnoremap <Up> :echoe "Use k"<CR>
-nnoremap <Down> :echoe "Use j"<CR>
 
 " text bubbling taken from vimcasts
 " Bubble single lines
@@ -182,11 +162,6 @@ nmap vs :vsplit<cr>
 nmap sp :split<cr>
 
 nmap <C-b> :NERDTreeToggle<cr>
-
-" vim completor
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
 
 nnoremap <leader>w :w<CR>
 nnoremap <leader>q :q<CR>
@@ -232,7 +207,7 @@ nnoremap <leader>gw :Gwrite<CR><CR>
 nnoremap <leader>gl :silent! Glog<CR>
 nnoremap <leader>gp :Ggrep<Space>
 nnoremap <leader>gm :Gmove<Space>
-nnoremap <leader>gb :Git branch<Space>
+nnoremap <leader>gb :Gblame<CR>
 nnoremap <leader>go :Git checkout<Space>
 nnoremap <leader>gps :Gpush<CR>
 nnoremap <leader>gpl :Gpull<CR>
