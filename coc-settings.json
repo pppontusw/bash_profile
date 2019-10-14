@@ -3,6 +3,7 @@
     "python.linting.enabled": true,
     "python.formatting.provider": "black",
     "python.formatting.blackPath": "/usr/local/bin/black",
+    "python.formatting.blackArgs": ["-l 79"],
     "coc.preferences.formatOnSaveFiletypes": ["css", "Markdown", "typescript", "javascript", "typescriptreact", "javascriptreact", "python"],
     "prettier.eslintIntegration": true,
     "eslint.filetypes": ["javascript", "javascriptreact", "typescript", "typescriptreact"],

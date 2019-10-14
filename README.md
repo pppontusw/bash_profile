@@ -1,9 +1,3 @@
 # bash_profile
 
-## Mac
-
-To install or update run `./install.sh` from the local directory
-
-## Linux
-
-To install or update run `./linux-install.sh` from the local directory
+Easiest way to use is to symlink the files in this repo to ~/.vimrc ~/.bash_(profile|aliases) and ~/.tmux.conf

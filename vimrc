@@ -11,7 +11,6 @@ Plug 'https://github.com/xypnox/OceanicMaterialVim.git'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
-Plug 'kien/ctrlp.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-surround'
 Plug 'jiangmiao/auto-pairs'
@@ -34,6 +33,8 @@ Plug 'rizzatti/dash.vim'
 Plug 'jmcantrell/vim-diffchanges'
 Plug 'xolox/vim-session'
 Plug 'xolox/vim-misc'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 call plug#end()
 
 " from mscoutermarsh/dotfiles
@@ -190,6 +191,35 @@ inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
 nnoremap <leader>w :w<CR>
 nnoremap <leader>q :q<CR>
 
+" fzf
+nnoremap <silent> <leader><space> :Files<CR>
+nnoremap <silent> <leader>a :Buffers<CR>
+nnoremap <silent> <leader>A :Windows<CR>
+nnoremap <silent> <leader>; :BLines<CR>
+nnoremap <silent> <leader>o :BTags<CR>
+nnoremap <silent> <leader>O :Tags<CR>
+nnoremap <silent> <leader>? :History<CR>
+nnoremap <silent> <leader>/ :execute 'Rg ' . input('Rg/')<CR>
+
+nnoremap <silent> K :call SearchWordWithRg()<CR>
+vnoremap <silent> K :call SearchVisualSelectionWithRg()<CR>
+
+function! SearchWordWithRg()
+  execute 'Rg' expand('<cword>')
+endfunction
+
+function! SearchVisualSelectionWithRg() range
+  let old_reg = getreg('"')
+  let old_regtype = getregtype('"')
+  let old_clipboard = &clipboard
+  set clipboard&
+  normal! ""gvy
+  let selection = getreg('"')
+  call setreg('"', old_reg, old_regtype)
+  let &clipboard = old_clipboard
+  execute 'Rg' selection
+endfunction
+
 " fugitive
 nnoremap <leader>gs :Gstatus<CR>
 nnoremap <leader>gc :Gcommit -v -q<CR>
@@ -273,7 +303,7 @@ nmap <leader>ji <Plug>(coc-implementation)
 nmap <leader>jr <Plug>(coc-references)
 
 " Use K to show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+nnoremap <silent> S :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -302,13 +332,13 @@ augroup mygroup
 augroup end
 
 " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
+"xmap <leader>a  <Plug>(coc-codeaction-selected)
+"nmap <leader>a  <Plug>(coc-codeaction-selected)
 
 " Remap for do codeAction of current line
-nmap <leader>ac  <Plug>(coc-codeaction)
+"nmap <leader>ac  <Plug>(coc-codeaction)
 " Fix autofix problem of current line
-nmap <leader>qf  <Plug>(coc-fix-current)
+"nmap <leader>qf  <Plug>(coc-fix-current)
 
 " Create mappings for function text object, requires document symbols feature of
 " languageserver.

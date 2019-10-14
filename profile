@@ -1,6 +1,7 @@
 export EDITOR=vim
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 export TZ=/usr/share/zoneinfo/Europe/Helsinki
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden'
 
 alias python=python3
 alias apb=ansible-playbook
