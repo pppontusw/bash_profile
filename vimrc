@@ -163,7 +163,6 @@ nmap <<Space> [<Space>
 " splits
 nnoremap :sp :rightbelow sp<cr>
 
-nnoremap <C-b> :NERDTreeToggle<cr>
 
 nnoremap + :w<CR>
 nnoremap s /
@@ -180,13 +179,18 @@ tnoremap <C-k> <C-w>k
 tnoremap <C-j> <C-w>j
 tnoremap <C-l> <C-w>l
 
+tnoremap <Esc> <C-w>N
+tnoremap <C-e> <Esc>
+
 nnoremap <leader>qq :q<CR>
+nnoremap <leader>bd :bd<CR>
 nnoremap <leader>qa :qa<CR>
 nnoremap <leader>q! :qa!<CR>
 nnoremap <leader>vs :vsplit<cr>
 nnoremap <leader>vt :vert term<cr>
 nnoremap <leader>sp :split<cr>
 nnoremap <leader>st :term<cr>
+nnoremap <leader>tr :NERDTreeToggle<cr>
 
 " fzf
 nnoremap <silent> <leader><space> :Files<CR>
