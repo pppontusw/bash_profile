@@ -46,9 +46,6 @@ set hlsearch                          " Highlight search results
 set incsearch                         " Show search results as you type
 set autoread                          " Auto reload changed files
 
-set scrolloff=5       " Leave 5 lines of buffer when scrolling
-"set sidescrolloff=10  " Leave 10 characters of horizontal buffer when scrolling
-
 let g:auto_save = 1  " enable AutoSave on Vim startup
 let g:auto_save_in_insert_mode = 0 " do not save in insert mode
 
