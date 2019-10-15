@@ -106,7 +106,7 @@ colorscheme vim-material
 let g:airline_theme='solarized'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#branch#enabled=1
-let g:airline#extensions#coc#enabled = 1
+let g:airline#extensions#coc#enabled = 0
 
 " Update section z to just have line number
 let g:airline_section_z = airline#section#create(['linenr'])
@@ -136,14 +136,19 @@ let mapleader = ","
 let g:mapleader = ","
 let g:EasyMotion_leader_key = '<Leader>'
 
+" gets alt keys working at least on mac
+" https://stackoverflow.com/questions/9520676/macvim-iterm2-tmux-bind-alt-meta
+execute "set <A-j>=\ej"
+execute "set <A-k>=\ek"
+
 " text bubbling taken from vimcasts
 " Bubble single lines
-nmap <C-k> [e
-nmap <C-j> ]e
+nmap <A-k> [e
+nmap <A-j> ]e
 
 " Bubble multiple lines
-vmap <C-k> [egv
-vmap <C-j> ]egv
+vmap <A-k> [egv
+vmap <A-j> ]egv
 
 " remap for fi keyboard (stolen from unimpaired readme)
 "nmap < [
@@ -156,14 +161,32 @@ nmap ><Space> ]<Space>
 nmap <<Space> [<Space>
 
 " splits
-nmap :sp :rightbelow sp<cr>
-nmap vs :vsplit<cr>
-nmap sp :split<cr>
+nnoremap :sp :rightbelow sp<cr>
 
-nmap <C-b> :NERDTreeToggle<cr>
+nnoremap <C-b> :NERDTreeToggle<cr>
 
-nnoremap <leader>w :w<CR>
-nnoremap <leader>q :q<CR>
+nnoremap + :w<CR>
+nnoremap s /
+nnoremap <Del> :%s/
+vnoremap <Del> :s/
+
+nnoremap <C-h> <C-w>h
+nnoremap <C-k> <C-w>k
+nnoremap <C-j> <C-w>j
+nnoremap <C-l> <C-w>l
+
+tnoremap <C-h> <C-w>h
+tnoremap <C-k> <C-w>k
+tnoremap <C-j> <C-w>j
+tnoremap <C-l> <C-w>l
+
+nnoremap <leader>qq :q<CR>
+nnoremap <leader>qa :qa<CR>
+nnoremap <leader>q! :qa!<CR>
+nnoremap <leader>vs :vsplit<cr>
+nnoremap <leader>vt :vert term<cr>
+nnoremap <leader>sp :split<cr>
+nnoremap <leader>st :term<cr>
 
 " fzf
 nnoremap <silent> <leader><space> :Files<CR>
@@ -212,17 +235,6 @@ nnoremap <leader>gps :Gpush<CR>
 nnoremap <leader>gpl :Gpull<CR>
 
 nnoremap <leader>dd :DiffChangesDiffToggle<CR>
-
-" folding
-nnoremap <leader>f za
-nnoremap <leader>FO zR
-nnoremap <leader>FC zM
-
-" numbers
-nnoremap <leader>nrn :set relativenumber<CR>
-nnoremap <leader>norn :set norelativenumber<CR>
-nnoremap <leader>non :set nonumber<CR>
-nnoremap <leader>nn :set number<CR>
 
 " all this is for COC
 " " if hidden is not set, TextEdit might fail.
