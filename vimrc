@@ -52,9 +52,6 @@ set scrolloff=5       " Leave 5 lines of buffer when scrolling
 let g:auto_save = 1  " enable AutoSave on Vim startup
 let g:auto_save_in_insert_mode = 0 " do not save in insert mode
 
-" use the default clipboard for yank and paste
-set clipboard=unnamed
-
 " window split settings
 set splitbelow
 set splitright
