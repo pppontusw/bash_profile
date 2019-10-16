@@ -161,6 +161,7 @@ nmap <<Space> [<Space>
 nnoremap :sp :rightbelow sp<cr>
 
 
+nnoremap Y y$
 nnoremap + :w<CR>
 nnoremap s /
 nnoremap <Del> :%s/
