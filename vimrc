@@ -94,8 +94,12 @@ set undoreload=10000
 
 " use truecolor
 set termguicolors
+" workaround for color issues in iterm2
 let &t_ZH="\e[3m"
 let &t_ZR="\e[23m"
+
+" background refresh issue in kitty
+"let &t_ut=''
 
 " colorscheme
 set background=dark
@@ -161,17 +165,17 @@ let g:EasyMotion_leader_key = '<Leader>'
 
 " gets alt keys working at least on mac
 " https://stackoverflow.com/questions/9520676/macvim-iterm2-tmux-bind-alt-meta
-execute "set <A-j>=\ej"
-execute "set <A-k>=\ek"
+"execute "set <A-j>=\ej"
+"execute "set <A-k>=\ek"
 
 " text bubbling taken from vimcasts
 " Bubble single lines
-nmap <A-k> [e
-nmap <A-j> ]e
+"nmap <A-k> [e
+"nmap <A-j> ]e
 
 " Bubble multiple lines
-vmap <A-k> [egv
-vmap <A-j> ]egv
+"vmap <A-k> [egv
+"vmap <A-j> ]egv
 
 " remap for fi keyboard (stolen from unimpaired readme)
 "nmap < [
@@ -203,8 +207,13 @@ tnoremap <C-k> <C-w>k
 tnoremap <C-j> <C-w>j
 tnoremap <C-l> <C-w>l
 
-tnoremap <Esc><Esc> <C-w>N
-tnoremap <C-e> <Esc>
+if has('nvim')
+  tnoremap <Esc><Esc> <C-\><C-N>
+  tnoremap <C-e> <Esc>
+else
+  tnoremap <Esc><Esc> <C-w>N
+  tnoremap <C-e> <Esc>
+endif
 
 nnoremap <leader>qq :q<CR>
 nnoremap <leader>bd :bd<CR>

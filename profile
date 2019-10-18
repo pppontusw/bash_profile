@@ -21,6 +21,7 @@ alias sourcevenv='source .venv/bin/activate'
 alias ctags="`brew --prefix`/bin/ctags"
 
 function vims() { vim -S ~/.vim/sessions/$1 }
+function nvims() { nvim -S ~/.vim/sessions/$1 }
 
 function ansibleping() { ansible -i $1 -m ping "tag_Os_Ubu*"; }
 function ansiblewinping() { ansible -i $1 -m win_ping "tag_Os_Win*"; }

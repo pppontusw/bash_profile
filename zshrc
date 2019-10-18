@@ -121,3 +121,4 @@ function _vims() {
     esac
 }
 compdef _vims vims
+compdef _vims nvims
