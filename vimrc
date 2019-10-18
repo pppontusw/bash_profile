@@ -37,7 +37,8 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-peekaboo'
 Plug 'mbbill/undotree'
-Plug 'rakr/vim-one'
+"Plug 'rakr/vim-one' " switch back after merge
+Plug 'pppontusw/vim-one'
 call plug#end()
 
 " from mscoutermarsh/dotfiles
@@ -91,7 +92,7 @@ set undodir=~/.vim/undo//
 set undolevels=1000
 set undoreload=10000
 
-" use terminal colors
+" use truecolor
 set termguicolors
 let &t_ZH="\e[3m"
 let &t_ZR="\e[23m"
@@ -100,6 +101,28 @@ let &t_ZR="\e[23m"
 set background=dark
 colorscheme one
 "colorscheme vim-material
+
+"terminal colors
+
+"one theme colors ->
+"let g:terminal_ansi_colors = [
+"\ '#353a44',
+"\ '#e88388',
+"\ '#a7cc8c',
+"\ '#ebca8d',
+"\ '#72bef2',
+"\ '#d291e4',
+"\ '#65c2cd',
+"\ '#e3e5e9',
+"\ '#353a44',
+"\ '#e88388',
+"\ '#a7cc8c',
+"\ '#ebca8d',
+"\ '#72bef2',
+"\ '#d291e4',
+"\ '#65c2cd',
+"\ '#e3e5e9',
+"\ ]
 
 "airline
 "let g:airline_theme='solarized'
