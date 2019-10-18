@@ -37,6 +37,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-peekaboo'
 Plug 'mbbill/undotree'
+Plug 'rakr/vim-one'
 call plug#end()
 
 " from mscoutermarsh/dotfiles
@@ -97,10 +98,12 @@ let &t_ZR="\e[23m"
 
 " colorscheme
 set background=dark
-colorscheme vim-material
+colorscheme one
+"colorscheme vim-material
 
 "airline
-let g:airline_theme='solarized'
+"let g:airline_theme='solarized'
+let g:airline_theme='one'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#branch#enabled=1
 let g:airline#extensions#coc#enabled = 0
@@ -177,7 +180,7 @@ tnoremap <C-k> <C-w>k
 tnoremap <C-j> <C-w>j
 tnoremap <C-l> <C-w>l
 
-tnoremap <Esc> <C-w>N
+tnoremap <Esc><Esc> <C-w>N
 tnoremap <C-e> <Esc>
 
 nnoremap <leader>qq :q<CR>
