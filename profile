@@ -18,6 +18,7 @@ alias tat='tmux a -t'
 alias tls='tmux ls'
 alias tn='tmux new-session'
 alias sourcevenv='source .venv/bin/activate'
+alias ctags="`brew --prefix`/bin/ctags"
 
 function vims() { vim -S ~/.vim/sessions/$1 }
 
