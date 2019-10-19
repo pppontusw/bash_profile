@@ -5,40 +5,68 @@ if empty(glob("~/.vim/autoload/plug.vim"))
 endif
 
 call plug#begin('~/.vim/plugged')
-Plug 'scrooloose/nerdcommenter'
+
+Plug 'scrooloose/nerdcommenter' " ,c comment shortcuts
+Plug 'tpope/vim-fugitive' " git integration
+
+" Colorschemes and themes
 Plug 'kaicataldo/material.vim'
 Plug 'https://github.com/xypnox/OceanicMaterialVim.git'
+Plug 'pppontusw/vim-one'
+
+" airline
 Plug 'vim-airline/vim-airline-themes'
-Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
+
+Plug 'xolox/vim-session'
 Plug 'scrooloose/nerdtree'
-Plug 'tpope/vim-surround'
-Plug 'jiangmiao/auto-pairs'
 Plug 'airblade/vim-gitgutter'
-Plug 'ekalinin/Dockerfile.vim'
-Plug 'ntpeters/vim-better-whitespace'
-Plug 'alvan/vim-closetag'
+Plug 'rizzatti/dash.vim'
+Plug 'jmcantrell/vim-diffchanges'
+Plug 'mbbill/undotree'
+Plug 'junegunn/vim-peekaboo'
+
+" lint & fix
+Plug 'w0rp/ale'
+
+" syntax
 Plug 'hashivim/vim-terraform'
+Plug 'ekalinin/Dockerfile.vim'
+Plug 'peitalin/vim-jsx-typescript'
+Plug 'leafgarland/typescript-vim'
+
 Plug 'tpope/vim-unimpaired'
-Plug 'kana/vim-textobj-user'
-Plug 'lucapette/vim-textobj-underscore'
 Plug 'pgdouyon/vim-evanesco'
 Plug 'adelarsq/vim-matchit'
 Plug 'sickill/vim-pasta'
 Plug 'tpope/vim-sleuth'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'peitalin/vim-jsx-typescript'
-Plug 'leafgarland/typescript-vim'
-Plug 'rizzatti/dash.vim'
-Plug 'jmcantrell/vim-diffchanges'
-Plug 'xolox/vim-session'
+Plug 'tpope/vim-surround'
+Plug 'jiangmiao/auto-pairs'
+Plug 'alvan/vim-closetag'
+
+" ctags
+Plug 'ludovicchabant/vim-gutentags'
+
+Plug 'ntpeters/vim-better-whitespace'
+Plug 'kana/vim-textobj-user'
+Plug 'lucapette/vim-textobj-underscore'
 Plug 'xolox/vim-misc'
+
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'junegunn/vim-peekaboo'
-Plug 'mbbill/undotree'
-"Plug 'rakr/vim-one' " switch back after merge
-Plug 'pppontusw/vim-one'
+
+" for vim-lsp
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+
+" asyncomplete
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'prabirshrestha/asyncomplete-file.vim'
+Plug 'prabirshrestha/asyncomplete-buffer.vim'
+Plug 'prabirshrestha/asyncomplete-tags.vim'
+
+
 call plug#end()
 
 " from mscoutermarsh/dotfiles
@@ -81,7 +109,6 @@ set copyindent                  " copy the previous indentation on autoindenting
 set ignorecase                  " ignore case when searching
 set smartcase                  " ignore case if search pattern is all lowercase,
 
-
 silent !mkdir -p ~/.vim/undo
 silent !mkdir -p ~/.vim/swap
 silent !mkdir -p ~/.vim/backup
@@ -94,6 +121,7 @@ set undoreload=10000
 
 " use truecolor
 set termguicolors
+
 " workaround for color issues in iterm2
 let &t_ZH="\e[3m"
 let &t_ZR="\e[23m"
@@ -106,34 +134,11 @@ set background=dark
 colorscheme one
 "colorscheme vim-material
 
-"terminal colors
-
-"one theme colors ->
-"let g:terminal_ansi_colors = [
-"\ '#353a44',
-"\ '#e88388',
-"\ '#a7cc8c',
-"\ '#ebca8d',
-"\ '#72bef2',
-"\ '#d291e4',
-"\ '#65c2cd',
-"\ '#e3e5e9',
-"\ '#353a44',
-"\ '#e88388',
-"\ '#a7cc8c',
-"\ '#ebca8d',
-"\ '#72bef2',
-"\ '#d291e4',
-"\ '#65c2cd',
-"\ '#e3e5e9',
-"\ ]
-
 "airline
 "let g:airline_theme='solarized'
 let g:airline_theme='one'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#branch#enabled=1
-let g:airline#extensions#coc#enabled = 0
 
 " Update section z to just have line number
 let g:airline_section_z = airline#section#create(['linenr'])
@@ -155,7 +160,70 @@ let g:session_autoload = 'yes'
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 let NERDTreeShowHidden=1
 
-let g:coc_global_extensions = ['coc-css', 'coc-html', 'coc-python', 'coc-prettier', 'coc-eslint', 'coc-snippets', 'coc-json', 'coc-tsserver', 'coc-emmet']
+" ALE
+let g:airline#extensions#ale#enabled = 1
+let g:ale_fix_on_save = 1
+
+let g:ale_fixers = {
+ \ 'javascript': ['prettier'],
+ \ 'typescript': ['prettier'],
+ \ 'python': ['black']
+ \ }
+
+let g:ale_python_black_options = '-l 79'
+
+" LSP config
+let g:lsp_diagnostics_enabled = 0         " disable diagnostics support
+
+if executable('pyls')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'pyls',
+        \ 'cmd': {server_info->['pyls']},
+        \ 'whitelist': ['python'],
+        \ })
+endif
+
+if executable('typescript-language-server')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'typescript-language-server',
+        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+        \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))},
+        \ 'whitelist': ['typescript', 'typescript.tsx'],
+        \ })
+endif
+
+" Autocomplete
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr>    pumvisible() ? "\<C-y>" : "\<cr>"
+imap <c-space> <Plug>(asyncomplete_force_refresh)
+
+call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
+    \ 'name': 'buffer',
+    \ 'whitelist': ['*'],
+    \ 'blacklist': ['go'],
+    \ 'completor': function('asyncomplete#sources#buffer#completor'),
+    \ 'config': {
+    \    'max_buffer_size': 50000000,
+    \  },
+    \ }))
+
+au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
+    \ 'name': 'file',
+    \ 'whitelist': ['*'],
+    \ 'priority': 10,
+    \ 'completor': function('asyncomplete#sources#file#completor')
+    \ }))
+
+au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#tags#get_source_options({
+    \ 'name': 'tags',
+    \ 'whitelist': ['c'],
+    \ 'completor': function('asyncomplete#sources#tags#completor'),
+    \ 'config': {
+    \    'max_file_size': 50000000,
+    \  },
+    \ }))
+
 
 " Mappings
 
@@ -170,12 +238,12 @@ let g:EasyMotion_leader_key = '<Leader>'
 
 " text bubbling taken from vimcasts
 " Bubble single lines
-"nmap <A-k> [e
-"nmap <A-j> ]e
+nmap <C-Up> [e
+nmap <C-Down> ]e
 
 " Bubble multiple lines
-"vmap <A-k> [egv
-"vmap <A-j> ]egv
+vmap <C-Up> [egv
+vmap <C-Down> ]egv
 
 " remap for fi keyboard (stolen from unimpaired readme)
 "nmap < [
@@ -224,6 +292,11 @@ nnoremap <leader>vt :vert term<cr>
 nnoremap <leader>sp :split<cr>
 nnoremap <leader>st :term<cr>
 nnoremap <leader>tr :NERDTreeToggle<cr>
+nnoremap <leader>dd :DiffChangesDiffToggle<CR>
+
+nnoremap <leader>jr :LspReferences<CR>
+nnoremap <leader>jd :LspDefinition<CR>
+nnoremap <leader>pd :LspPeekDefinition<CR>
 
 " fzf
 nnoremap <silent> <leader><space> :Files<CR>
@@ -235,8 +308,8 @@ nnoremap <silent> <leader>O :Tags<CR>
 nnoremap <silent> <leader>? :History<CR>
 nnoremap <silent> <leader>/ :execute 'Rg ' . input('Rg/')<CR>
 
-nnoremap <silent> K :call SearchWordWithRg()<CR>
-vnoremap <silent> K :call SearchVisualSelectionWithRg()<CR>
+nnoremap <silent> S :call SearchWordWithRg()<CR>
+vnoremap <silent> s :call SearchVisualSelectionWithRg()<CR>
 
 function! SearchWordWithRg()
   execute 'Rg' expand('<cword>')
@@ -276,136 +349,3 @@ nnoremap <leader>go :Git checkout<Space>
 nnoremap <leader>gps :Gpush<CR>
 nnoremap <leader>gpl :Gpull<CR>
 
-nnoremap <leader>dd :DiffChangesDiffToggle<CR>
-
-" all this is for COC
-" " if hidden is not set, TextEdit might fail.
-set hidden
-
-" Some servers have issues with backup files, see #649
-set nobackup
-set nowritebackup
-
-" Better display for messages
-set cmdheight=2
-
-" You will have bad experience for diagnostic messages when it's default 4000.
-set updatetime=300
-
-" don't give |ins-completion-menu| messages.
-set shortmess+=c
-
-" always show signcolumns
-set signcolumn=yes
-
-" Use tab for trigger completion with characters ahead and navigate.
-" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-" Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
-
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
-" Coc only does snippet and additional edit on confirm.
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-" Or use `complete_info` if your vim support it, like:
-" inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-
-" Use `[g` and `]g` to navigate diagnostics
-nmap <leader>dp <Plug>(coc-diagnostic-prev)
-nmap <leader>dn <Plug>(coc-diagnostic-next)
-
-" Remap keys for gotos
-nmap <leader>jd <Plug>(coc-definition)
-nmap <leader>jy <Plug>(coc-type-definition)
-nmap <leader>ji <Plug>(coc-implementation)
-nmap <leader>jr <Plug>(coc-references)
-
-" Use K to show documentation in preview window
-nnoremap <silent> S :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
-" Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
-" Remap for rename current word
-nmap <leader>rn <Plug>(coc-rename)
-
-" Remap for format selected region
-nmap <leader>f  <Plug>(coc-format-selected)
-xmap <leader>f  <Plug>(coc-format-selected)
-
-augroup mygroup
-  autocmd!
-  " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
-
-" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
-"xmap <leader>a  <Plug>(coc-codeaction-selected)
-"nmap <leader>a  <Plug>(coc-codeaction-selected)
-
-" Remap for do codeAction of current line
-"nmap <leader>ac  <Plug>(coc-codeaction)
-" Fix autofix problem of current line
-"nmap <leader>qf  <Plug>(coc-fix-current)
-
-" Create mappings for function text object, requires document symbols feature of
-" languageserver.
-
-xmap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
-omap if <Plug>(coc-funcobj-i)
-omap af <Plug>(coc-funcobj-a)
-
-" Use <C-d> for select selections ranges, needs server support, like: coc-tsserver, coc-python
-"nmap <silent> <C-d> <Plug>(coc-range-select)
-"xmap <silent> <C-d> <Plug>(coc-range-select)
-
-" Use `:Format` to format current buffer
-command! -nargs=0 Format :call CocAction('format')
-
-" Use `:Fold` to fold current buffer
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-
-" use `:OR` for organize import of current buffer
-command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
-
-" Add status line support, for integration with other plugin, checkout `:h coc-status`
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-
-" Using CocList
-" Show all diagnostics
-nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
-" Manage extensions
-nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
-" Show commands
-nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
-" Find symbol of current document
-nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
-" Search workspace symbols
-nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
-" Do default action for next item.
-nnoremap <silent> <space>j  :<C-u>CocNext<CR>
-" Do default action for previous item.
-nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
-" Resume latest coc list
-nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
