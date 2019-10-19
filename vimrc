@@ -175,6 +175,11 @@ let g:ale_python_black_options = '-l 79'
 " LSP config
 let g:lsp_diagnostics_enabled = 0         " disable diagnostics support
 
+autocmd FileType python,*.js,*.jsx,*.mjs,*.ts,*.tsx nmap gd <plug>(lsp-definition)
+autocmd FileType python,*.js,*.jsx,*.mjs,*.ts,*.tsx nmap gr <plug>(lsp-references)
+autocmd FileType python,*.js,*.jsx,*.mjs,*.ts,*.tsx nmap K <plug>(lsp-hover)
+autocmd FileType python,*.js,*.jsx,*.mjs,*.ts,*.tsx nmap <leader>pd <plug>(lsp-peek-definition)
+
 if executable('pyls')
     au User lsp_setup call lsp#register_server({
         \ 'name': 'pyls',
@@ -294,9 +299,6 @@ nnoremap <leader>st :term<cr>
 nnoremap <leader>tr :NERDTreeToggle<cr>
 nnoremap <leader>dd :DiffChangesDiffToggle<CR>
 
-nnoremap <leader>jr :LspReferences<CR>
-nnoremap <leader>jd :LspDefinition<CR>
-nnoremap <leader>pd :LspPeekDefinition<CR>
 
 " fzf
 nnoremap <silent> <leader><space> :Files<CR>
