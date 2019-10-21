@@ -265,6 +265,8 @@ nnoremap s /
 nnoremap <Del> :%s/
 vnoremap <Del> :s/
 
+let g:BASH_Ctrl_j = 'off'
+let g:C_Ctrl_j = 'off'
 nnoremap <C-h> <C-w>h
 nnoremap <C-k> <C-w>k
 nnoremap <C-j> <C-w>j
