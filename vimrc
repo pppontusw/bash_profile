@@ -203,11 +203,6 @@ let mapleader = ","
 let g:mapleader = ","
 let g:EasyMotion_leader_key = '<Leader>'
 
-" gets alt keys working at least on mac
-" https://stackoverflow.com/questions/9520676/macvim-iterm2-tmux-bind-alt-meta
-"execute "set <A-j>=\ej"
-"execute "set <A-k>=\ek"
-
 " text bubbling taken from vimcasts
 " Bubble single lines
 nmap <C-Up> [e
