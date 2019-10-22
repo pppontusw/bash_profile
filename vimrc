@@ -58,17 +58,19 @@ Plug 'prabirshrestha/vim-lsp'
 
 " autocomplete
 Plug 'lifepillar/vim-mucomplete'
-
 call plug#end()
-" from mscoutermarsh/dotfiles
-set ttyfast                           " Send more characters in fast terminals
-set nowrap                            " Don't wrap long lines
+
+" search
 set hlsearch                          " Highlight search results
 set incsearch                         " Show search results as you type
 set autoread                          " Auto reload changed files
+set ignorecase                  " ignore case
+set smartcase                  " ignore case if search pattern is all lowercase,
 
+" saving and loading
 let g:auto_save = 1  " enable AutoSave on Vim startup
 let g:auto_save_in_insert_mode = 0 " do not save in insert mode
+set autowrite  "Save on buffer switch
 
 " window split settings
 set splitbelow
@@ -79,24 +81,29 @@ set ttimeout
 set ttimeoutlen=0
 set timeoutlen=1000
 
+" numbers
 set relativenumber
 set number
-set autowrite  "Save on buffer switch
+
+" tabs and indents
 set tabstop=4
-set smarttab
-set showmode
-set tags=tags
 set softtabstop=4
 set expandtab
 set shiftwidth=4
 set shiftround
-set backspace=indent,eol,start  " allow backspacing over everything in insert mode
+set smarttab
 set autoindent                " always set autoindenting on
 set copyindent                  " copy the previous indentation on autoindenting
-set ignorecase                  " ignore case
-set smartcase                  " ignore case if search pattern is all lowercase,
+
+" misc
+set ttyfast                           " Send more characters in fast terminals
+set nowrap                            " Don't wrap long lines
+set showmode
+set tags=tags
+set backspace=indent,eol,start  " allow backspacing over everything in insert mode
 set wildmenu                " show tab completion menu
 
+" backup/undo/swap
 silent !mkdir -p ~/.vim/undo
 silent !mkdir -p ~/.vim/swap
 silent !mkdir -p ~/.vim/backup
@@ -114,16 +121,11 @@ set termguicolors
 let &t_ZH="\e[3m"
 let &t_ZR="\e[23m"
 
-" background refresh issue in kitty
-"let &t_ut=''
-
 " colorscheme
 set background=dark
 colorscheme one
-"colorscheme vim-material
 
-"airline
-"let g:airline_theme='solarized'
+" airline
 let g:airline_theme='one'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#branch#enabled=1
@@ -137,16 +139,19 @@ let g:airline_skip_empty_sections = 1
 " Smartly uniquify buffers names with similar filename, suppressing common parts of paths.
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 
-" Hide the Nerdtree status line to avoid clutter
-let g:NERDTreeStatusline = ''
 
 " vim-session
 let g:session_autosave = 'yes'
 let g:session_autoload = 'yes'
 
+
 " NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 let NERDTreeShowHidden=1
+
+" Hide the Nerdtree status line to avoid clutter
+let g:NERDTreeStatusline = ''
+
 
 " ALE
 let g:airline#extensions#ale#enabled = 1
@@ -159,6 +164,7 @@ let g:ale_fixers = {
  \ }
 
 let g:ale_python_black_options = '-l 79'
+
 
 " LSP config
 let g:lsp_diagnostics_enabled = 0         " disable diagnostics support
@@ -186,6 +192,7 @@ if executable('typescript-language-server')
         \ })
 endif
 
+
 " Autocomplete
 set shortmess+=c   " Shut off completion messages
 set completeopt+=menuone
@@ -193,8 +200,8 @@ set completeopt+=noselect
 set completeopt-=preview
 let g:mucomplete#enable_auto_at_startup = 1
 
-" Mappings
 
+" Mappings
 let mapleader = ","
 let g:mapleader = ","
 let g:EasyMotion_leader_key = '<Leader>'
@@ -239,6 +246,7 @@ else
   tnoremap <C-e> <Esc>
 endif
 
+" leader mappings
 nnoremap <leader>qq :q<CR>
 nnoremap <leader>bd :bd<CR>
 nnoremap <leader>qa :qa<CR>
