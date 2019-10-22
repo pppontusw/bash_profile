@@ -7,51 +7,48 @@ endif
 call plug#begin('~/.vim/plugged')
 
 Plug 'scrooloose/nerdcommenter' " ,c comment shortcuts
-Plug 'tpope/vim-fugitive' " git integration
 
-" Colorschemes and themes
-Plug 'kaicataldo/material.vim'
-Plug 'https://github.com/xypnox/OceanicMaterialVim.git'
-Plug 'pppontusw/vim-one'
+" git integration
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+
+Plug 'pppontusw/vim-one' " colorscheme
 
 " airline
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-airline/vim-airline'
 
-Plug 'xolox/vim-session'
-Plug 'scrooloose/nerdtree'
-Plug 'airblade/vim-gitgutter'
-Plug 'rizzatti/dash.vim'
-Plug 'jmcantrell/vim-diffchanges'
-Plug 'mbbill/undotree'
-Plug 'junegunn/vim-peekaboo'
+Plug 'xolox/vim-session' " session wrapper
+
+Plug 'scrooloose/nerdtree' " file tree browser
+Plug 'jmcantrell/vim-diffchanges' " diff unsaved changes
+Plug 'mbbill/undotree' " undotree browser
+Plug 'junegunn/vim-peekaboo' " peek registers when pasting
 
 " lint & fix
 Plug 'w0rp/ale'
 
-" syntax
+" syntax plugins
 Plug 'hashivim/vim-terraform'
 Plug 'ekalinin/Dockerfile.vim'
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'leafgarland/typescript-vim'
 
-Plug 'tpope/vim-unimpaired'
-Plug 'pgdouyon/vim-evanesco'
-Plug 'adelarsq/vim-matchit'
-Plug 'sickill/vim-pasta'
-Plug 'tpope/vim-sleuth'
-Plug 'tpope/vim-surround'
-Plug 'jiangmiao/auto-pairs'
-Plug 'alvan/vim-closetag'
+Plug 'tpope/vim-unimpaired' " adds some extra motions like [<Space> (also bubbling depends on this)
+Plug 'pgdouyon/vim-evanesco' " hides search highlight when cursor moves
+Plug 'adelarsq/vim-matchit' " improved % jumping
+Plug 'sickill/vim-pasta' " indentation aware pasting
+Plug 'tpope/vim-sleuth' " sets shiftwidth and expandtab based on the current file
+Plug 'tpope/vim-surround' " surround functionality
+Plug 'jiangmiao/auto-pairs' " brackets quotes and parenthesis are added in pairs
+Plug 'alvan/vim-closetag' " automatically close html brackets
+Plug 'ntpeters/vim-better-whitespace' " adds stripwhitespace and whitespace highlighting
 
-" ctags
-Plug 'ludovicchabant/vim-gutentags'
+Plug 'kana/vim-textobj-user' " custom text objects
+Plug 'lucapette/vim-textobj-underscore' " adds _ as a text object
+Plug 'xolox/vim-misc' " misc vim scripts
 
-Plug 'ntpeters/vim-better-whitespace'
-Plug 'kana/vim-textobj-user'
-Plug 'lucapette/vim-textobj-underscore'
-Plug 'xolox/vim-misc'
-
+" fuzzyfinding powered by fzf
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
@@ -59,16 +56,10 @@ Plug 'junegunn/fzf.vim'
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
 
-" asyncomplete
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
-Plug 'prabirshrestha/asyncomplete-file.vim'
-Plug 'prabirshrestha/asyncomplete-buffer.vim'
-Plug 'prabirshrestha/asyncomplete-tags.vim'
-
+" autocomplete
+Plug 'lifepillar/vim-mucomplete'
 
 call plug#end()
-
 " from mscoutermarsh/dotfiles
 set ttyfast                           " Send more characters in fast terminals
 set nowrap                            " Don't wrap long lines
@@ -102,7 +93,9 @@ set shiftround
 set backspace=indent,eol,start  " allow backspacing over everything in insert mode
 set autoindent                " always set autoindenting on
 set copyindent                  " copy the previous indentation on autoindenting
+set ignorecase                  " ignore case
 set smartcase                  " ignore case if search pattern is all lowercase,
+set wildmenu                " show tab completion menu
 
 silent !mkdir -p ~/.vim/undo
 silent !mkdir -p ~/.vim/swap
@@ -174,6 +167,7 @@ autocmd FileType python,*.js,*.jsx,*.mjs,*.ts,*.tsx nmap gd <plug>(lsp-definitio
 autocmd FileType python,*.js,*.jsx,*.mjs,*.ts,*.tsx nmap gr <plug>(lsp-references)
 autocmd FileType python,*.js,*.jsx,*.mjs,*.ts,*.tsx nmap K <plug>(lsp-hover)
 autocmd FileType python,*.js,*.jsx,*.mjs,*.ts,*.tsx nmap <leader>pd <plug>(lsp-peek-definition)
+autocmd FileType python,*.js,*.jsx,*.mjs,*.ts,*.tsx setlocal omnifunc=lsp#complete
 
 if executable('pyls')
     au User lsp_setup call lsp#register_server({
@@ -193,37 +187,15 @@ if executable('typescript-language-server')
 endif
 
 " Autocomplete
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr>    pumvisible() ? "\<C-y>" : "\<cr>"
-imap <c-space> <Plug>(asyncomplete_force_refresh)
+set shortmess+=c   " Shut off completion messages
+set completeopt+=menuone
+set completeopt+=noselect
+set completeopt-=preview
+let g:mucomplete#enable_auto_at_startup = 1
 
-call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
-    \ 'name': 'buffer',
-    \ 'whitelist': ['*'],
-    \ 'blacklist': ['go'],
-    \ 'completor': function('asyncomplete#sources#buffer#completor'),
-    \ 'config': {
-    \    'max_buffer_size': 50000000,
-    \  },
-    \ }))
-
-au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
-    \ 'name': 'file',
-    \ 'whitelist': ['*'],
-    \ 'priority': 10,
-    \ 'completor': function('asyncomplete#sources#file#completor')
-    \ }))
-
-au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#tags#get_source_options({
-    \ 'name': 'tags',
-    \ 'whitelist': ['c'],
-    \ 'completor': function('asyncomplete#sources#tags#completor'),
-    \ 'config': {
-    \    'max_file_size': 50000000,
-    \  },
-    \ }))
-
+"inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+"inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+"inoremap <expr> <cr>    pumvisible() ? "\<C-y>" : "\<cr>"
 
 " Mappings
 
@@ -265,8 +237,6 @@ nnoremap s /
 nnoremap <Del> :%s/
 vnoremap <Del> :s/
 
-let g:BASH_Ctrl_j = 'off'
-let g:C_Ctrl_j = 'off'
 nnoremap <C-h> <C-w>h
 nnoremap <C-k> <C-w>k
 nnoremap <C-j> <C-w>j
