@@ -193,10 +193,6 @@ set completeopt+=noselect
 set completeopt-=preview
 let g:mucomplete#enable_auto_at_startup = 1
 
-"inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-"inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-"inoremap <expr> <cr>    pumvisible() ? "\<C-y>" : "\<cr>"
-
 " Mappings
 
 let mapleader = ","
@@ -213,18 +209,11 @@ vmap <C-Up> [egv
 vmap <C-Down> ]egv
 
 " remap for fi keyboard (stolen from unimpaired readme)
-"nmap < [
-"nmap > ]
-"omap < [
-"omap > ]
-"xmap < [
-"xmap > ]
 nmap ><Space> ]<Space>
 nmap <<Space> [<Space>
 
 " splits
 nnoremap :sp :rightbelow sp<cr>
-
 
 nnoremap Y y$
 nnoremap + :w<CR>
