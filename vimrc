@@ -122,7 +122,12 @@ let &t_ZH="\e[3m"
 let &t_ZR="\e[23m"
 
 " colorscheme
-set background=dark
+if strftime('%H') > "08" && strftime('%H') < "18"
+  set background=light
+else
+  set background=dark
+endif
+
 colorscheme one
 
 " airline
