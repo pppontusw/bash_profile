@@ -121,6 +121,9 @@ set termguicolors
 let &t_ZH="\e[3m"
 let &t_ZR="\e[23m"
 
+" background refresh issue in kitty and tmux
+let &t_ut=''
+
 " colorscheme
 if strftime('%H') > "08" && strftime('%H') < "18"
   set background=light
