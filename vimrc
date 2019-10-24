@@ -33,6 +33,8 @@ Plug 'hashivim/vim-terraform'
 Plug 'ekalinin/Dockerfile.vim'
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'leafgarland/typescript-vim'
+Plug 'PProvost/vim-ps1'
+Plug 'derekwyatt/vim-scala'
 
 Plug 'tpope/vim-unimpaired' " adds some extra motions like [<Space> (also bubbling depends on this)
 Plug 'pgdouyon/vim-evanesco' " hides search highlight when cursor moves
@@ -173,15 +175,17 @@ let g:ale_fixers = {
 
 let g:ale_python_black_options = '-l 79'
 
+" filetypes
+au BufRead,BufNewFile *.sbt set filetype=scala
 
 " LSP config
 let g:lsp_diagnostics_enabled = 0         " disable diagnostics support
 
-autocmd FileType python,*.js,*.jsx,*.mjs,*.ts,*.tsx nmap gd <plug>(lsp-definition)
-autocmd FileType python,*.js,*.jsx,*.mjs,*.ts,*.tsx nmap gr <plug>(lsp-references)
-autocmd FileType python,*.js,*.jsx,*.mjs,*.ts,*.tsx nmap K <plug>(lsp-hover)
-autocmd FileType python,*.js,*.jsx,*.mjs,*.ts,*.tsx nmap <leader>pd <plug>(lsp-peek-definition)
-autocmd FileType python,*.js,*.jsx,*.mjs,*.ts,*.tsx setlocal omnifunc=lsp#complete
+autocmd FileType python,scala,*.js,*.jsx,*.mjs,*.ts,*.tsx nmap gd <plug>(lsp-definition)
+autocmd FileType python,scala,*.js,*.jsx,*.mjs,*.ts,*.tsx nmap gr <plug>(lsp-references)
+autocmd FileType python,scala,*.js,*.jsx,*.mjs,*.ts,*.tsx nmap K <plug>(lsp-hover)
+autocmd FileType python,scala,*.js,*.jsx,*.mjs,*.ts,*.tsx nmap <leader>pd <plug>(lsp-peek-definition)
+autocmd FileType python,scala,*.js,*.jsx,*.mjs,*.ts,*.tsx setlocal omnifunc=lsp#complete
 
 if executable('pyls')
     au User lsp_setup call lsp#register_server({
@@ -200,6 +204,14 @@ if executable('typescript-language-server')
         \ })
 endif
 
+if executable('metals-vim')
+   au User lsp_setup call lsp#register_server({
+      \ 'name': 'metals',
+      \ 'cmd': {server_info->['metals-vim']},
+      \ 'initialization_options': { 'rootPatterns': 'build.sbt' },
+      \ 'whitelist': [ 'scala', 'sbt' ],
+      \ })
+endif
 
 " Autocomplete
 set shortmess+=c   " Shut off completion messages
