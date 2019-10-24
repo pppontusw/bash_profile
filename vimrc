@@ -25,9 +25,6 @@ Plug 'jmcantrell/vim-diffchanges' " diff unsaved changes
 Plug 'mbbill/undotree' " undotree browser
 Plug 'junegunn/vim-peekaboo' " peek registers when pasting
 
-" lint & fix
-Plug 'w0rp/ale'
-
 " syntax plugins
 Plug 'hashivim/vim-terraform'
 Plug 'ekalinin/Dockerfile.vim'
@@ -54,12 +51,9 @@ Plug 'xolox/vim-misc' " misc vim scripts
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
-" for vim-lsp
-Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/vim-lsp'
+" lsp with coc
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-" autocomplete
-Plug 'lifepillar/vim-mucomplete'
 call plug#end()
 
 " search
@@ -108,8 +102,6 @@ set wildmenu                " show tab completion menu
 " backup/undo/swap
 silent !mkdir -p ~/.vim/undo
 silent !mkdir -p ~/.vim/swap
-silent !mkdir -p ~/.vim/backup
-set backupdir=~/.vim/backup//
 set directory=~/.vim/swap//
 set undofile
 set undodir=~/.vim/undo//
@@ -163,63 +155,8 @@ let NERDTreeShowHidden=1
 let g:NERDTreeStatusline = ''
 
 
-" ALE
-let g:airline#extensions#ale#enabled = 1
-let g:ale_fix_on_save = 1
-
-let g:ale_fixers = {
- \ 'javascript': ['prettier'],
- \ 'typescript': ['prettier'],
- \ 'python': ['black']
- \ }
-
-let g:ale_python_black_options = '-l 79'
-
 " filetypes
 au BufRead,BufNewFile *.sbt set filetype=scala
-
-" LSP config
-let g:lsp_diagnostics_enabled = 0         " disable diagnostics support
-
-autocmd FileType python,scala,*.js,*.jsx,*.mjs,*.ts,*.tsx nmap gd <plug>(lsp-definition)
-autocmd FileType python,scala,*.js,*.jsx,*.mjs,*.ts,*.tsx nmap gr <plug>(lsp-references)
-autocmd FileType python,scala,*.js,*.jsx,*.mjs,*.ts,*.tsx nmap K <plug>(lsp-hover)
-autocmd FileType python,scala,*.js,*.jsx,*.mjs,*.ts,*.tsx nmap <leader>pd <plug>(lsp-peek-definition)
-autocmd FileType python,scala,*.js,*.jsx,*.mjs,*.ts,*.tsx setlocal omnifunc=lsp#complete
-
-if executable('pyls')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'pyls',
-        \ 'cmd': {server_info->['pyls']},
-        \ 'whitelist': ['python'],
-        \ })
-endif
-
-if executable('typescript-language-server')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'typescript-language-server',
-        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
-        \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))},
-        \ 'whitelist': ['typescript', 'typescript.tsx'],
-        \ })
-endif
-
-if executable('metals-vim')
-   au User lsp_setup call lsp#register_server({
-      \ 'name': 'metals',
-      \ 'cmd': {server_info->['metals-vim']},
-      \ 'initialization_options': { 'rootPatterns': 'build.sbt' },
-      \ 'whitelist': [ 'scala', 'sbt' ],
-      \ })
-endif
-
-" Autocomplete
-set shortmess+=c   " Shut off completion messages
-set completeopt+=menuone
-set completeopt+=noselect
-set completeopt-=preview
-let g:mucomplete#enable_auto_at_startup = 1
-
 
 " Mappings
 let mapleader = ","
@@ -330,3 +267,104 @@ nnoremap <leader>go :Git checkout<Space>
 nnoremap <leader>gps :Gpush<CR>
 nnoremap <leader>gpl :Gpull<CR>
 
+" all this is for COC
+let g:coc_global_extensions = ['coc-css', 'coc-html', 'coc-python', 'coc-prettier', 'coc-eslint', 'coc-snippets', 'coc-json', 'coc-tsserver', 'coc-emmet']
+
+" " if hidden is not set, TextEdit might fail.
+set hidden
+
+" Some servers have issues with backup files, see #649
+set nobackup
+set nowritebackup
+
+" Better display for messages
+set cmdheight=2
+
+" You will have bad experience for diagnostic messages when it's default 4000.
+set updatetime=300
+
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+
+" always show signcolumns
+set signcolumn=yes
+
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" Or use `complete_info` if your vim support it, like:
+" inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Use `[g` and `]g` to navigate diagnostics
+nmap <leader>dp <Plug>(coc-diagnostic-prev)
+nmap <leader>dn <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+autocmd FileType python,scala,*.js,*.jsx,*.mjs,*.ts,*.tsx nmap gd <Plug>(coc-definition)
+nmap <leader>gd <Plug>(coc-definition)
+nmap gY <Plug>(coc-type-definition)
+nmap gI <Plug>(coc-implementation)
+nmap gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+" Use `:Format` to format current buffer
+command! -nargs=0 Format :call CocAction('format')
+
+" Use `:Fold` to fold current buffer
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" use `:OR` for organize import of current buffer
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+" Add status line support, for integration with other plugin, checkout `:h coc-status`
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+" Using CocList
+" Show all diagnostics
+nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions
+nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+" Show commands
+nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document
+nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols
+nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list
+nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
