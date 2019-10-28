@@ -3,6 +3,7 @@
   "python.linting.enabled": true,
   "python.formatting.provider": "black",
   "python.formatting.blackPath": "/usr/local/bin/black",
+  "java.jdt.ls.vmargs": "-noverify -Xmx1G",
   "python.formatting.blackArgs": ["-l 79"],
   "coc.preferences.formatOnSaveFiletypes": [
     "css",
@@ -12,7 +13,8 @@
     "typescriptreact",
     "javascriptreact",
     "python",
-    "json"
+    "json",
+    "java"
   ],
   "prettier.eslintIntegration": true,
   "eslint.filetypes": [

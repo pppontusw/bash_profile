@@ -316,7 +316,7 @@ nmap <leader>dp <Plug>(coc-diagnostic-prev)
 nmap <leader>dn <Plug>(coc-diagnostic-next)
 
 " Remap keys for gotos
-autocmd FileType python,scala,*.js,*.jsx,*.mjs,*.ts,*.tsx nmap gd <Plug>(coc-definition)
+autocmd FileType python,java,scala,*.js,*.jsx,*.mjs,*.ts,*.tsx nmap gd <Plug>(coc-definition)
 nmap <leader>gd <Plug>(coc-definition)
 nmap gY <Plug>(coc-type-definition)
 nmap gI <Plug>(coc-implementation)
