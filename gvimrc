@@ -144,9 +144,8 @@ let g:airline#extensions#tabline#formatter = 'unique_tail'
 
 
 " vim-session
-let g:session_autosave = 'no'
-let g:session_autoload = 'no'
-let g:session_persist_colors = 0
+let g:session_autosave = 'yes'
+let g:session_autoload = 'yes'
 
 
 " NERDTree
@@ -226,7 +225,7 @@ nnoremap <silent> <leader>; :BLines<CR>
 nnoremap <silent> <leader>o :BTags<CR>
 nnoremap <silent> <leader>O :Tags<CR>
 nnoremap <silent> <leader>? :History<CR>
-nnoremap <silent> <leader>s :execute 'Rg ' . input('Rg/')<CR>
+nnoremap <silent> <leader>/ :execute 'Rg ' . input('Rg/')<CR>
 
 nnoremap <silent> S :call SearchWordWithRg()<CR>
 vnoremap <silent> s :call SearchVisualSelectionWithRg()<CR>
@@ -370,3 +369,8 @@ nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
+" gvim specific
+set macligatures
+set guifont=Fira\ Code:h16
+set guioptions=

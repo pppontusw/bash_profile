@@ -22,6 +22,7 @@ alias ctags="`brew --prefix`/bin/ctags"
 
 function vims() { vim -S ~/.vim/sessions/$1 }
 function nvims() { nvim -S ~/.vim/sessions/$1 }
+function mvims() { mvim -S ~/.vim/sessions/$1 }
 
 function ansibleping() { ansible -i $1 -m ping "tag_Os_Ubu*"; }
 function ansiblewinping() { ansible -i $1 -m win_ping "tag_Os_Win*"; }
@@ -46,6 +47,23 @@ function sshb() {
 	abc=$(eval $command)
 	ssh $abc
 }
+
+function hosta() {
+	ENVI=$1
+	HOSTI=$(echo "$2" | tr /a-z/ /A-Z/)
+	command="~/git/ansible/application/${ENVI} | jq '._meta.hostvars[] | select(.ec2_tag_Role==\"$HOSTI\") | .ansible_ssh_host' | tr -d \\\""
+	abc=$(eval $command)
+	echo $abc | pbcopy
+}
+
+function hostb() {
+	ENVI=$1
+	HOSTI=$(echo "$2" | tr /a-z/ /A-Z/)
+	command="~/git/ansible/service/${ENVI}-service | jq '._meta.hostvars[] | select(.ec2_tag_Role==\"$HOSTI\") | .ansible_ssh_host' | tr -d \\\""
+	abc=$(eval $command)
+	echo $abc | pbcopy
+}
+
 function reload() {
 	if [ -f ~/.bash_profile ]; then
 		source ~/.bash_profile
