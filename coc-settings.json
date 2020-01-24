@@ -5,8 +5,10 @@
   "python.formatting.blackPath": "/usr/local/bin/black",
   "java.jdt.ls.vmargs": "-noverify -Xmx1G",
   "python.formatting.blackArgs": ["-l 79"],
+  "diagnostic.checkCurrentLine": true,
   "coc.preferences.formatOnSaveFiletypes": [
     "css",
+    "html",
     "Markdown",
     "typescript",
     "javascript",
@@ -30,5 +32,6 @@
       "filetypes": ["scala", "sbt"]
     }
   },
-  "python.linting.pylintEnabled": true
+  "python.linting.pylintEnabled": false,
+  "python.linting.flake8Enabled": true
 }
