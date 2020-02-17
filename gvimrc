@@ -200,7 +200,8 @@ if has('nvim')
   tnoremap <Esc><Esc> <C-\><C-N>
   tnoremap <C-e> <Esc>
 else
-  tnoremap <Esc><Esc> <C-w>N
+  au TerminalOpen * tnoremap <buffer> <Esc><Esc> <C-w>N
+  au FileType fzf tunmap <buffer> <Esc><Esc>
   tnoremap <C-e> <Esc>
 endif
 

@@ -201,8 +201,9 @@ if has('nvim')
   tnoremap <Esc><Esc> <C-\><C-N>
   tnoremap <C-e> <Esc>
 else
-  tnoremap <Esc><Esc> <C-w>N
   tnoremap <C-e> <Esc>
+  au TerminalOpen * tnoremap <Esc><Esc> <C-w>N
+  au FileType fzf tunmap <Esc><Esc>
 endif
 
 " leader mappings
