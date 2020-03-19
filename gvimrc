@@ -18,8 +18,6 @@ Plug 'pppontusw/vim-one' " colorscheme
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-airline/vim-airline'
 
-Plug 'xolox/vim-session' " session wrapper
-
 Plug 'scrooloose/nerdtree' " file tree browser
 Plug 'jmcantrell/vim-diffchanges' " diff unsaved changes
 Plug 'mbbill/undotree' " undotree browser
@@ -54,6 +52,10 @@ Plug 'junegunn/fzf.vim'
 
 " lsp with coc
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+Plug 'pearofducks/ansible-vim'
+
+Plug 'tyru/open-browser.vim'
 
 call plug#end()
 
@@ -375,3 +377,7 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 set macligatures
 set guifont=Fira\ Code:h16
 set guioptions=
+let g:netrw_nogx = 1
+nmap gx <Plug>(openbrowser-smart-search)
+vmap gx <Plug>(openbrowser-smart-search)
+tmap gx <Plug>(openbrowser-smart-search)
