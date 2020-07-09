@@ -273,7 +273,7 @@ nnoremap <leader>gps :Gpush<CR>
 nnoremap <leader>gpl :Gpull<CR>
 
 " all this is for COC
-let g:coc_global_extensions = ['coc-css', 'coc-html', 'coc-python', 'coc-prettier', 'coc-eslint', 'coc-snippets', 'coc-json', 'coc-tsserver', 'coc-emmet']
+let g:coc_global_extensions = ['coc-css', 'coc-html', 'coc-python', 'coc-prettier', 'coc-eslint', 'coc-snippets', 'coc-json', 'coc-tsserver', 'coc-emmet', 'coc-java']
 
 " " if hidden is not set, TextEdit might fail.
 set hidden

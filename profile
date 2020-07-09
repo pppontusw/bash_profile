@@ -3,7 +3,6 @@ export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 export TZ=/usr/share/zoneinfo/Europe/Helsinki
 export FZF_DEFAULT_COMMAND='rg --files --hidden'
 
-alias python=python3
 alias apb=ansible-playbook
 alias ag=ansible-galaxy
 alias agu='ansible-galaxy install -r requirements.yaml -f'
