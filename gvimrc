@@ -6,6 +6,7 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
+" NOTE! that any plugins added in gvimrc also needs to be added to vimrc
 Plug 'scrooloose/nerdcommenter' " ,c comment shortcuts
 
 " git integration
@@ -56,6 +57,8 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'pearofducks/ansible-vim'
 
 Plug 'tyru/open-browser.vim'
+
+" NOTE! that any plugins added in gvimrc also needs to be added to vimrc
 
 call plug#end()
 
@@ -166,6 +169,7 @@ let mapleader = ","
 let g:mapleader = ","
 let g:EasyMotion_leader_key = '<Leader>'
 
+
 " text bubbling taken from vimcasts
 " Bubble single lines
 nmap <C-Up> [e
@@ -210,12 +214,12 @@ endif
 " leader mappings
 nnoremap <leader>qq :q<CR>
 nnoremap <leader>bd :bd<CR>
-nnoremap <leader>qa :qa<CR>
-nnoremap <leader>q! :qa!<CR>
-nnoremap <leader>vs :vsplit<cr>
+"nnoremap <leader>qa :qa<CR>
+"nnoremap <leader>q! :qa!<CR>
+"nnoremap <leader>vs :vsplit<cr>
 nnoremap <leader>vt :vert term<cr>
-nnoremap <leader>sp :split<cr>
-nnoremap <leader>st :term<cr>
+"nnoremap <leader>sp :split<cr>
+"nnoremap <leader>st :term<cr>
 nnoremap <leader>tr :NERDTreeToggle<cr>
 nnoremap <leader>dd :DiffChangesDiffToggle<CR>
 
@@ -228,7 +232,7 @@ nnoremap <silent> <leader>; :BLines<CR>
 nnoremap <silent> <leader>o :BTags<CR>
 nnoremap <silent> <leader>O :Tags<CR>
 nnoremap <silent> <leader>? :History<CR>
-nnoremap <silent> <leader>/ :execute 'Rg ' . input('Rg/')<CR>
+nnoremap <silent> <leader>s :execute 'Rg ' . input('Rg/')<CR>
 
 nnoremap <silent> S :call SearchWordWithRg()<CR>
 vnoremap <silent> s :call SearchVisualSelectionWithRg()<CR>
@@ -377,7 +381,10 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 set macligatures
 set guifont=Fira\ Code:h16
 set guioptions=
+
 let g:netrw_nogx = 1
 nmap gx <Plug>(openbrowser-smart-search)
 vmap gx <Plug>(openbrowser-smart-search)
-tmap gx <Plug>(openbrowser-smart-search)
+
+autocmd FileType python map <buffer> <F5> :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
+

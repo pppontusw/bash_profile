@@ -55,6 +55,8 @@ Plug 'junegunn/fzf.vim'
 " lsp with coc
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
+Plug 'tyru/open-browser.vim'
+
 call plug#end()
 
 " search
@@ -209,12 +211,12 @@ endif
 " leader mappings
 nnoremap <leader>qq :q<CR>
 nnoremap <leader>bd :bd<CR>
-nnoremap <leader>qa :qa<CR>
-nnoremap <leader>q! :qa!<CR>
-nnoremap <leader>vs :vsplit<cr>
+"nnoremap <leader>qa :qa<CR>
+"nnoremap <leader>q! :qa!<CR>
+"nnoremap <leader>vs :vsplit<cr>
 nnoremap <leader>vt :vert term<cr>
-nnoremap <leader>sp :split<cr>
-nnoremap <leader>st :term<cr>
+"nnoremap <leader>sp :split<cr>
+"nnoremap <leader>st :term<cr>
 nnoremap <leader>tr :NERDTreeToggle<cr>
 nnoremap <leader>dd :DiffChangesDiffToggle<CR>
 

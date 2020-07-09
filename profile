@@ -8,7 +8,11 @@ alias apb=ansible-playbook
 alias ag=ansible-galaxy
 alias agu='ansible-galaxy install -r requirements.yaml -f'
 alias randompass='openssl rand -base64 32'
-alias randompassc='openssl rand -base64 32 | pbcopy'
+alias randompassc='randompass | pbcopy'
+alias randoman='openssl rand -hex 32'
+alias randomanc='randoman | pbcopy'
+alias an="tr -dc 'a-zA-Z0-9'"
+alias pc='pbcopy'
 alias av=ansible-vault
 alias tf=terraform
 alias d-c=docker-compose
@@ -72,3 +76,5 @@ function genselfsigned() {
 	fi
 }
 
+export EJSON_KEYDIR="/Users/pontus/.ejson/keys"
+export PATH="/Users/pontus/.gem/ruby/2.6.0/bin:/usr/local/opt/gettext/bin:$PATH"
