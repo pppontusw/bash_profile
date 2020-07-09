@@ -121,3 +121,5 @@ function _vims() {
     esac
 }
 compdef _vims vims
+
+export PROMPT='%m %(?:%{%}➜ :%{%}➜ )%{$fg[cyan]%}%c%{$reset_color%} $(git_prompt_info)'
